@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_list_app/auth_pages/my_home_page.dart';
+import 'package:to_do_list_app/auth_pages/first_time_gate.dart';
 import 'package:to_do_list_app/firebase_options.dart';
-import 'package:to_do_list_app/pages/page_controller.dart';
 import 'package:to_do_list_app/services/auth_methods.dart';
 
 void main() async {
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w800,
               ),
             )),
-        home: const MyHomePage(),
+        home: const FirstTimeGate(),
       ),
     );
   }

@@ -14,6 +14,12 @@ sameGap(double height) {
   );
 }
 
+sameGap2(double height) {
+  return SizedBox(
+    height: height / 30,
+  );
+}
+
 containerIcon(double height, double width, IconData icon, double iconSize) {
   return Container(
     width: height,

@@ -39,7 +39,7 @@ class HomePageHeadder extends StatelessWidget {
         const Icon(
           Icons.notifications,
           color: Colors.black,
-          size: 40,
+          size: 30,
         ),
       ],
     );

@@ -15,6 +15,7 @@ class PagesController extends StatefulWidget {
 
 class _PagesControllerState extends State<PagesController> {
   int currentPages = 0;
+  PageController pageController = PageController();
   List<Widget> pages = [
     const HomePage(),
     const TodayTasksPage(),
@@ -25,7 +26,15 @@ class _PagesControllerState extends State<PagesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currentPages],
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (value) {
+          setState(() {
+            currentPages = value;
+          });
+        },
+        children: pages,
+      ),
       floatingActionButton: FloatingActionButton(
         elevation: 30,
         backgroundColor: Palette.purpleColor,
@@ -38,74 +47,92 @@ class _PagesControllerState extends State<PagesController> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        height: 60,
-        color: const Color.fromRGBO(237, 232, 255, 1),
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 5,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  currentPages = 0;
-                });
-              },
-              child: FaIcon(
-                FontAwesomeIcons.house,
-                color: (currentPages == 0)
-                    ? const Color.fromRGBO(95, 51, 224, 1.0)
-                    : const Color.fromRGBO(158, 131, 238, 1.0),
-              ),
-            ),
-            // ignore: deprecated_member_use
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  currentPages = 1;
-                });
-              },
-              child: FaIcon(
-                FontAwesomeIcons.tasks,
-                size: 30,
-                color: (currentPages == 1)
-                    ? const Color.fromRGBO(95, 51, 224, 1.0)
-                    : const Color.fromRGBO(158, 131, 238, 1.0),
-              ),
-            ),
-            const SizedBox(),
-            const SizedBox(),
-            const SizedBox(),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  currentPages = 2;
-                });
-              },
-              child: FaIcon(
-                FontAwesomeIcons.trophy,
-                color: (currentPages == 2)
-                    ? const Color.fromRGBO(95, 51, 224, 1.0)
-                    : const Color.fromRGBO(158, 131, 238, 1.0),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  currentPages = 3;
-                });
-              },
-              child: FaIcon(
-                FontAwesomeIcons.recycle,
-                color: (currentPages == 3)
-                    ? const Color.fromRGBO(95, 51, 224, 1.0)
-                    : const Color.fromRGBO(158, 131, 238, 1.0),
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: customAppBar(),
     );
+  }
+
+  ClipRRect customAppBar() {
+    return ClipRRect(
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        child: BottomAppBar(
+          height: 60,
+          color: const Color.fromRGBO(237, 232, 255, 1),
+          shape: const AutomaticNotchedShape(
+            RoundedRectangleBorder(),
+            StadiumBorder(),
+          ),
+          notchMargin: 5,
+          clipBehavior: Clip.antiAlias,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    pageController.animateToPage(0,
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.linear);
+                  });
+                },
+                child: FaIcon(
+                  FontAwesomeIcons.house,
+                  color: (currentPages == 0)
+                      ? const Color.fromARGB(255, 53, 4, 200)
+                      : const Color.fromRGBO(158, 131, 238, 1.0),
+                ),
+              ),
+              // ignore: deprecated_member_use
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    pageController.animateToPage(1,
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.linear);
+                  });
+                },
+                child: FaIcon(
+                  FontAwesomeIcons.solidCalendarDays,
+                  color: (currentPages == 1)
+                      ? const Color.fromARGB(255, 53, 4, 200)
+                      : const Color.fromRGBO(158, 131, 238, 1.0),
+                ),
+              ),
+              const SizedBox(),
+              const SizedBox(),
+              const SizedBox(),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    pageController.animateToPage(2,
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.linear);
+                  });
+                },
+                child: FaIcon(
+                  FontAwesomeIcons.trophy,
+                  color: (currentPages == 2)
+                      ? const Color.fromARGB(255, 53, 4, 200)
+                      : const Color.fromRGBO(158, 131, 238, 1.0),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    pageController.animateToPage(3,
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.linear);
+                  });
+                },
+                child: FaIcon(
+                  FontAwesomeIcons.recycle,
+                  color: (currentPages == 3)
+                      ? const Color.fromARGB(255, 53, 4, 200)
+                      : const Color.fromRGBO(158, 131, 238, 1.0),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }

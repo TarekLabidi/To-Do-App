@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(width: 5),
                           const Text(
-                            'Google',
+                            'Continue With Google',
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.black,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:to_do_list_app/auth_pages/auth_gate.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
@@ -7,6 +8,7 @@ class ThirdWelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _myBox = Hive.box('todo');
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -46,6 +48,7 @@ class ThirdWelcomePage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
+              _myBox.put('firstTime', false);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -77,6 +80,7 @@ class ThirdWelcomePage extends StatelessWidget {
           SizedBox(height: height / 60),
           TextButton(
             onPressed: () {
+              _myBox.put('firstTime', false);
               Navigator.push(
                 context,
                 MaterialPageRoute(

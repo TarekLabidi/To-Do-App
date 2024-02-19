@@ -23,21 +23,27 @@ class TaskGroupCard extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              Text.rich(
-                TextSpan(
-                  text: 'Personal Project\n',
-                  style: GoogleFonts.lato(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                  children: const [
-                    TextSpan(
-                      text: '18 Task',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color.fromARGB(255, 168, 164, 164),
-                      ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Personal Project',
+                    style: GoogleFonts.lato(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const Text(
+                    '18 Task',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromARGB(255, 137, 134, 134),
+                    ),
+                  ),
+                ],
               ),
               const Spacer(),
               CircularPercentIndicator(
