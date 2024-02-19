@@ -17,6 +17,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return (_myBox.get('firstTime') == null)
         ? const FirstWelcomePage()
-        : const AuthGate();
+        : const AuthGate(
+            isRegister: false,
+          );
   }
 }

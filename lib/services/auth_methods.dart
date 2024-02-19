@@ -17,14 +17,29 @@ class AuthMethods {
     BuildContext context,
   ) async {
     try {
+      // Create user with email and password
       await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
+      // Send email verification
       await sendEmailVerification(context);
     } on FirebaseAuthException catch (e) {
-      showSnackBar(context, e.message!);
+      // Hide loading indicator
+
+      // Handle specific errors
+      switch (e.code) {
+        case 'weak-password':
+          showSnackBar(context, 'The password provided is too weak.');
+          break;
+        case 'email-already-in-use':
+          showSnackBar(context, 'The email address is already in use.');
+          break;
+        default:
+          showSnackBar(context, 'An error occurred: ${e.message}');
+          break;
+      }
     }
   }
 
@@ -35,13 +50,12 @@ class AuthMethods {
     String password,
   ) async {
     try {
+      print("okkkkk");
       await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      if (!_auth.currentUser!.emailVerified) {
-        await sendEmailVerification(context);
-      }
+      if (!_auth.currentUser!.emailVerified) {}
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }

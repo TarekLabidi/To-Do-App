@@ -49,7 +49,7 @@ class ThirdWelcomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const AuthGate(),
+                  builder: (context) => const AuthGate(isRegister: false),
                 ),
               );
             },
@@ -80,7 +80,9 @@ class ThirdWelcomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const AuthGate(),
+                  builder: (context) => const AuthGate(
+                    isRegister: true,
+                  ),
                 ),
               );
             },

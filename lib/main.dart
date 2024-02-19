@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_list_app/auth_pages/my_home_page.dart';
 import 'package:to_do_list_app/firebase_options.dart';
+import 'package:to_do_list_app/pages/page_controller.dart';
 import 'package:to_do_list_app/services/auth_methods.dart';
 
 void main() async {
@@ -32,8 +34,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          useMaterial3: true,
-        ),
+            useMaterial3: true,
+            textTheme: TextTheme(
+              titleLarge: GoogleFonts.lato(
+                fontSize: 26,
+                color: Colors.black,
+                fontWeight: FontWeight.w800,
+              ),
+            )),
         home: const MyHomePage(),
       ),
     );
