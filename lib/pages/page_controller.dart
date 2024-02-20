@@ -65,7 +65,6 @@ class _PagesControllerState extends State<PagesController> {
           notchMargin: 5,
           clipBehavior: Clip.antiAlias,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
                 onTap: () {
@@ -75,11 +74,19 @@ class _PagesControllerState extends State<PagesController> {
                         curve: Curves.linear);
                   });
                 },
-                child: FaIcon(
-                  FontAwesomeIcons.house,
-                  color: (currentPages == 0)
-                      ? const Color.fromARGB(255, 53, 4, 200)
-                      : const Color.fromRGBO(158, 131, 238, 1.0),
+                // adding more space to the gestureDetector becaus the icons are small
+                child: Container(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25.0, vertical: 8),
+                    child: FaIcon(
+                      FontAwesomeIcons.house,
+                      color: (currentPages == 0)
+                          ? const Color.fromARGB(255, 53, 4, 200)
+                          : const Color.fromRGBO(158, 131, 238, 1.0),
+                    ),
+                  ),
                 ),
               ),
               // ignore: deprecated_member_use
@@ -91,16 +98,24 @@ class _PagesControllerState extends State<PagesController> {
                         curve: Curves.linear);
                   });
                 },
-                child: FaIcon(
-                  FontAwesomeIcons.solidCalendarDays,
-                  color: (currentPages == 1)
-                      ? const Color.fromARGB(255, 53, 4, 200)
-                      : const Color.fromRGBO(158, 131, 238, 1.0),
+                child: Container(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0, vertical: 8),
+                    child: FaIcon(
+                      FontAwesomeIcons.solidCalendarDays,
+                      color: (currentPages == 1)
+                          ? const Color.fromARGB(255, 53, 4, 200)
+                          : const Color.fromRGBO(158, 131, 238, 1.0),
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(),
-              const SizedBox(),
-              const SizedBox(),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.13,
+              ),
+
               GestureDetector(
                 onTap: () {
                   setState(() {
@@ -109,11 +124,18 @@ class _PagesControllerState extends State<PagesController> {
                         curve: Curves.linear);
                   });
                 },
-                child: FaIcon(
-                  FontAwesomeIcons.trophy,
-                  color: (currentPages == 2)
-                      ? const Color.fromARGB(255, 53, 4, 200)
-                      : const Color.fromRGBO(158, 131, 238, 1.0),
+                child: Container(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25.0, vertical: 8),
+                    child: FaIcon(
+                      FontAwesomeIcons.trophy,
+                      color: (currentPages == 2)
+                          ? const Color.fromARGB(255, 53, 4, 200)
+                          : const Color.fromRGBO(158, 131, 238, 1.0),
+                    ),
+                  ),
                 ),
               ),
               GestureDetector(
@@ -124,11 +146,18 @@ class _PagesControllerState extends State<PagesController> {
                         curve: Curves.linear);
                   });
                 },
-                child: FaIcon(
-                  FontAwesomeIcons.recycle,
-                  color: (currentPages == 3)
-                      ? const Color.fromARGB(255, 53, 4, 200)
-                      : const Color.fromRGBO(158, 131, 238, 1.0),
+                child: Container(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25.0, vertical: 8),
+                    child: FaIcon(
+                      FontAwesomeIcons.recycle,
+                      color: (currentPages == 3)
+                          ? const Color.fromARGB(255, 53, 4, 200)
+                          : const Color.fromRGBO(158, 131, 238, 1.0),
+                    ),
+                  ),
                 ),
               ),
             ],

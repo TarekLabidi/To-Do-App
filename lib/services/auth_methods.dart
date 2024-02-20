@@ -50,7 +50,6 @@ class AuthMethods {
     String password,
   ) async {
     try {
-      print("okkkkk");
       await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,

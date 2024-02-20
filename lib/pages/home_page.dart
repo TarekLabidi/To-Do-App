@@ -19,48 +19,58 @@ class _HomePageState extends State<HomePage> {
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                sameGap(height),
-                const HomePageHeadder(),
-                sameGap(height),
-                HabitsCard(height: height, width: width),
-                sameGap(height),
-                Text(
-                  'Goals In Progress',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                sameGap(height),
-                SizedBox(
-                  height: height / 5.5,
-                  child: ListView.builder(
-                      itemCount: 4,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return GoalssCardHp(height: height, width: width);
-                      }),
-                ),
-                sameGap(height),
-                Text(
-                  'Task Groups',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                sameGap(height),
-                ListView.builder(
-                    itemCount: 4,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return const TaskGroupCard();
-                    }),
-              ],
+        body: Stack(
+          children: [
+            Image.asset(
+              'assets/images/background.png',
+              height: height,
+              width: width,
+              fit: BoxFit.cover,
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    sameGap(height),
+                    const HomePageHeadder(),
+                    sameGap(height),
+                    HabitsCard(height: height, width: width),
+                    sameGap(height),
+                    Text(
+                      'Goals In Progress',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    sameGap(height),
+                    SizedBox(
+                      height: height / 5.5,
+                      child: ListView.builder(
+                          itemCount: 4,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return GoalssCardHp(height: height, width: width);
+                          }),
+                    ),
+                    sameGap(height),
+                    Text(
+                      'Task Groups',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    sameGap(height),
+                    ListView.builder(
+                        itemCount: 4,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return const TaskGroupCard();
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
