@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
+
+import 'package:to_do_list_app/components/middle_floationg_button.dart';
 import 'package:to_do_list_app/components/name_pop_up.dart';
+
 import 'package:to_do_list_app/pages/profile_page.dart';
 import 'package:to_do_list_app/pages/habits_goals_page.dart';
 import 'package:to_do_list_app/pages/home_page.dart';
 import 'package:to_do_list_app/pages/today_tasks_page.dart';
-import 'package:to_do_list_app/utils/palette.dart';
 
 class PagesController extends StatefulWidget {
   const PagesController({super.key});
@@ -30,6 +32,8 @@ class _PagesControllerState extends State<PagesController> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return (_myBox.get('name') != null)
         ? Scaffold(
             body: PageView(
@@ -41,17 +45,7 @@ class _PagesControllerState extends State<PagesController> {
               },
               children: pages,
             ),
-            floatingActionButton: FloatingActionButton(
-              elevation: 30,
-              backgroundColor: Palette.purpleColor,
-              shape: const CircleBorder(),
-              onPressed: () {},
-              child: const Icon(
-                Icons.add,
-                size: 30,
-                color: Colors.white,
-              ),
-            ),
+            floatingActionButton: MiddleFloationgButton(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: customAppBar(),

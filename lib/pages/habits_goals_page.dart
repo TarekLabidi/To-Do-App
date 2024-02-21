@@ -12,6 +12,7 @@ class HabitsGoalsPage extends StatefulWidget {
 class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
   bool isGoalsShown = true;
   bool isHabitsshown = true;
+  bool isTaskGroupShown = true;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -28,98 +29,137 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  sameGap(height),
-                  Center(
-                    child: Text(
-                      'Goals & Habits',
-                      style: Theme.of(context).textTheme.titleLarge,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    sameGap(height),
+                    Center(
+                      child: Text(
+                        'Goals & Habits',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
                     ),
-                  ),
-                  sameGap(height),
-                  sameGap(height),
-                  Row(
-                    children: [
-                      Text(
-                        'My Goals',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.add),
-                      ),
-                      SizedBox(
-                        width: width * 0.009,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isGoalsShown = !isGoalsShown;
-                          });
-                        },
-                        icon: RotatedBox(
-                          quarterTurns: (isGoalsShown) ? -1 : 1,
-                          child: const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 20.0,
-                            color: Colors.black,
+                    sameGap(height),
+                    sameGap(height),
+                    Row(
+                      children: [
+                        Text(
+                          'My Goals',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.add),
+                        ),
+                        SizedBox(
+                          width: width * 0.009,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isGoalsShown = !isGoalsShown;
+                            });
+                          },
+                          icon: RotatedBox(
+                            quarterTurns: (isGoalsShown) ? -1 : 1,
+                            child: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20.0,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  sameGap(height),
-                  (isGoalsShown)
-                      ? HabitsGoalsListView(
-                          height: height,
-                          widht: width,
-                          goalOrHabit: 'goals',
-                        )
-                      : const SizedBox.shrink(),
-                  sameGap(height),
-                  sameGap(height),
-                  Row(
-                    children: [
-                      Text(
-                        'My Habits',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.add),
-                      ),
-                      SizedBox(
-                        width: width * 0.009,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isHabitsshown = !isHabitsshown;
-                          });
-                        },
-                        icon: RotatedBox(
-                          quarterTurns: (isGoalsShown) ? -1 : 1,
-                          child: const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 20.0,
-                            color: Colors.black,
+                      ],
+                    ),
+                    (isGoalsShown)
+                        ? HabitsGoalsListView(
+                            height: height,
+                            widht: width,
+                            goalOrHabit: 'goals',
+                          )
+                        : const SizedBox.shrink(),
+                    sameGap(height),
+                    Row(
+                      children: [
+                        Text(
+                          'My Habits',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.add),
+                        ),
+                        SizedBox(
+                          width: width * 0.009,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isHabitsshown = !isHabitsshown;
+                            });
+                          },
+                          icon: RotatedBox(
+                            quarterTurns: (isGoalsShown) ? -1 : 1,
+                            child: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20.0,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  (isHabitsshown)
-                      ? HabitsGoalsListView(
-                          height: height,
-                          widht: width,
-                          goalOrHabit: 'habits',
-                        )
-                      : const SizedBox.shrink(),
-                ],
+                      ],
+                    ),
+                    (isHabitsshown)
+                        ? HabitsGoalsListView(
+                            height: height,
+                            widht: width,
+                            goalOrHabit: 'habits',
+                          )
+                        : const SizedBox.shrink(),
+                    sameGap(height),
+                    Row(
+                      children: [
+                        Text(
+                          'Task groups',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.add),
+                        ),
+                        SizedBox(
+                          width: width * 0.009,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isTaskGroupShown = !isTaskGroupShown;
+                            });
+                          },
+                          icon: RotatedBox(
+                            quarterTurns: (isGoalsShown) ? -1 : 1,
+                            child: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20.0,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    (isTaskGroupShown)
+                        ? HabitsGoalsListView(
+                            height: height,
+                            widht: width,
+                            goalOrHabit: 'Task group',
+                          )
+                        : const SizedBox.shrink(),
+                  ],
+                ),
               ),
             ),
           ],

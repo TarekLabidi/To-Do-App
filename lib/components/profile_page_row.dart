@@ -12,17 +12,17 @@ class GoalsPageRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Container(
-      height: MediaQuery.of(context).size.height * 0.07,
+      height: MediaQuery.of(context).size.height * 0.06,
       color: Color.fromARGB(255, 202, 204, 255),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(width: width / 5),
           Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+                height: MediaQuery.of(context).size.height * 0.015,
               ),
               GestureDetector(
                 onTap: () {
@@ -53,7 +53,7 @@ class GoalsPageRow extends StatelessWidget {
           Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+                height: MediaQuery.of(context).size.height * 0.015,
               ),
               GestureDetector(
                 onTap: () {
