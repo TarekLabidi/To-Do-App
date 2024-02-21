@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list_app/components/habits_goals_list_view.dart';
+import 'package:to_do_list_app/dummy_data.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class HabitsGoalsPage extends StatefulWidget {
@@ -78,6 +79,7 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
                             height: height,
                             widht: width,
                             goalOrHabit: 'goals',
+                            lists: goals,
                           )
                         : const SizedBox.shrink(),
                     sameGap(height),
@@ -117,6 +119,7 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
                             height: height,
                             widht: width,
                             goalOrHabit: 'habits',
+                            lists: habits,
                           )
                         : const SizedBox.shrink(),
                     sameGap(height),
@@ -156,6 +159,7 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
                             height: height,
                             widht: width,
                             goalOrHabit: 'Task group',
+                            lists: taskGroups,
                           )
                         : const SizedBox.shrink(),
                   ],

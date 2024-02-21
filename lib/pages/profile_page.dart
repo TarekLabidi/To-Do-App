@@ -72,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: const GoalsPageIcon(
                             // ignore: deprecated_member_use
                             icon: FontAwesomeIcons.checkCircle,
-                            title: 'Goals',
+                            title: 'Complited',
                           ),
                         ),
                       ],

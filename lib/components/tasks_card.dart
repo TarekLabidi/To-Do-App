@@ -5,10 +5,8 @@ import 'package:to_do_list_app/utils/palette.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class TasksCard extends StatefulWidget {
-  const TasksCard({
-    super.key,
-    required this.height,
-  });
+  final Map<String, dynamic> list;
+  const TasksCard({super.key, required this.height, required this.list});
 
   final double height;
 
@@ -26,10 +24,10 @@ class _TasksCardState extends State<TasksCard> {
       height: widget.height / 7.5,
       margin: const EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 20),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: const Color.fromARGB(255, 255, 255, 255),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: Color.fromARGB(255, 245, 245, 245),
+          color: const Color.fromARGB(255, 245, 245, 245),
         ),
       ),
       child: Padding(
@@ -40,9 +38,9 @@ class _TasksCardState extends State<TasksCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Text(
-                  'Learing Flutter',
-                  style: TextStyle(
+                Text(
+                  widget.list['title'],
+                  style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 157, 157, 157),
@@ -56,7 +54,7 @@ class _TasksCardState extends State<TasksCard> {
               ],
             ),
             Text(
-              'Create a To-Do-App',
+              widget.list['tasks'][0],
               style:
                   GoogleFonts.lato(fontSize: 17, fontWeight: FontWeight.w700),
             ),
@@ -79,6 +77,27 @@ class _TasksCardState extends State<TasksCard> {
                   ),
                 ),
                 const Spacer(),
+                (widget.list['category'] != null)
+                    ? Container(
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 255, 236, 207),
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 4.0, horizontal: 15),
+                          child: Text(
+                            widget.list['category'],
+                            style: GoogleFonts.lato(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.orange),
+                          ),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                const SizedBox(
+                  width: 10,
+                ),
                 GestureDetector(
                   onTap: () {
                     setState(() {

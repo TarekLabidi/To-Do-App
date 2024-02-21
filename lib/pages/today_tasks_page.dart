@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list_app/components/days_card.dart';
 import 'package:to_do_list_app/components/filters_card.dart';
 import 'package:to_do_list_app/components/tasks_card.dart';
+import 'package:to_do_list_app/dummy_data.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class TodayTasksPage extends StatefulWidget {
@@ -12,9 +13,25 @@ class TodayTasksPage extends StatefulWidget {
 }
 
 class _TodayTasksPageState extends State<TodayTasksPage> {
-  int poistionDay = 3;
+  int poistionDay = 2;
   int poistionFilter = 0;
   List<String> filters = ['All', 'To Do', 'Habits', 'Goals Tasks'];
+  List<Map<String, dynamic>> getList() {
+    if (poistionFilter == 0) {
+      List<Map<String, dynamic>> combinedList = [];
+      combinedList.addAll(taskGroups);
+      combinedList.addAll(habits);
+      combinedList.addAll(goals);
+      return combinedList;
+    } else if (poistionFilter == 1) {
+      return taskGroups;
+    } else if (poistionFilter == 2) {
+      return habits;
+    } else {
+      return goals;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -102,9 +119,13 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
                 sameGap2(height),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: 8,
+                    itemCount: getList().length,
                     itemBuilder: (context, index) {
-                      return TasksCard(height: height);
+                      final list = getList()[index];
+                      return TasksCard(
+                        height: height,
+                        list: list,
+                      );
                     },
                   ),
                 ),

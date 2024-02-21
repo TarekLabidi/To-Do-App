@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_app/components/profile_card_hp.dart';
+import 'package:to_do_list_app/components/goals_card_hp.dart';
 import 'package:to_do_list_app/components/habits_card.dart';
 import 'package:to_do_list_app/components/home_page_headder.dart';
 import 'package:to_do_list_app/components/task_group_card.dart';
+import 'package:to_do_list_app/dummy_data.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,10 +48,15 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: height / 5.5,
                       child: ListView.builder(
-                          itemCount: 4,
+                          itemCount: goals.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return GoalssCardHp(height: height, width: width);
+                            final goal = goals[index];
+                            return GoalssCardHp(
+                              height: height,
+                              width: width,
+                              goal: goal,
+                            );
                           }),
                     ),
                     sameGap(height),
@@ -60,11 +66,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                     sameGap(height),
                     ListView.builder(
-                        itemCount: 4,
+                        itemCount: taskGroups.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return const TaskGroupCard();
+                          final taskGroup = taskGroups[index];
+                          return TaskGroupCard(
+                            taskGroup: taskGroup,
+                          );
                         }),
                   ],
                 ),

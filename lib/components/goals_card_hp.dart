@@ -6,7 +6,12 @@ import 'package:to_do_list_app/utils/utils.dart';
 class GoalssCardHp extends StatelessWidget {
   final double height;
   final double width;
-  const GoalssCardHp({super.key, required this.height, required this.width});
+  final Map<String, dynamic> goal;
+  const GoalssCardHp(
+      {super.key,
+      required this.height,
+      required this.width,
+      required this.goal});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +34,7 @@ class GoalssCardHp extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Personal Project',
+                    goal['desc'],
                     style: GoogleFonts.lato(
                         fontSize: 15,
                         color: const Color.fromARGB(255, 139, 137, 137),
@@ -41,15 +46,13 @@ class GoalssCardHp extends StatelessWidget {
               ),
               SizedBox(height: height / 100),
               Text(
-                'Get a nice and a good someting in the somting',
+                goal['title'],
                 style:
                     GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.bold),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const Spacer(),
               LinearPercentIndicator(
                 width: width * 0.47,
                 lineHeight: 14.0,

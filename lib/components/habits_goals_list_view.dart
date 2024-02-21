@@ -6,11 +6,13 @@ class HabitsGoalsListView extends StatelessWidget {
       {super.key,
       required this.height,
       required this.widht,
-      required this.goalOrHabit});
+      required this.goalOrHabit,
+      required this.lists});
 
   final double height;
   final double widht;
   final String goalOrHabit;
+  final List<Map<String, dynamic>> lists;
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +21,33 @@ class HabitsGoalsListView extends StatelessWidget {
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: 2,
+          itemCount: lists.length,
           itemBuilder: (context, index) {
-            return const Padding(
-              padding: EdgeInsets.only(bottom: 12.0),
+            final habit = lists[index];
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
               child: Text.rich(
                 TextSpan(
                   text: '  #  ',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 29.0,
                     fontWeight: FontWeight.w700,
                     color: Color.fromARGB(255, 99, 44, 249),
                   ),
                   children: [
                     TextSpan(
-                      text: 'Weather_App',
-                      style: TextStyle(
+                      text: '${habit["title"].toString()} \n',
+                      style: const TextStyle(
                         fontSize: 22.0,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                      ),
+                    ),
+                    TextSpan(
+                      text:
+                          '               ${List.from(habit["tasks"]).length} Tasks',
+                      style: const TextStyle(
+                        fontSize: 12.0,
                         fontWeight: FontWeight.w400,
                         color: Colors.black,
                       ),

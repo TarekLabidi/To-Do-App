@@ -4,9 +4,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class TaskGroupCard extends StatelessWidget {
-  const TaskGroupCard({
-    super.key,
-  });
+  final Map<String, dynamic> taskGroup;
+  const TaskGroupCard({super.key, required this.taskGroup});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class TaskGroupCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Personal Project',
+                    taskGroup['title'],
                     style: GoogleFonts.lato(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -35,9 +34,9 @@ class TaskGroupCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const Text(
-                    '18 Task',
-                    style: TextStyle(
+                  Text(
+                    '${List.from(taskGroup["tasks"]).length} Tasks',
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 137, 134, 134),
