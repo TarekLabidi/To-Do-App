@@ -26,10 +26,10 @@ class _TasksCardState extends State<TasksCard> {
       height: widget.height / 7.5,
       margin: const EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 20),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 247, 245, 245),
+        color: Color.fromARGB(255, 255, 255, 255),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: const Color.fromARGB(255, 208, 207, 207),
+          color: Color.fromARGB(255, 245, 245, 245),
         ),
       ),
       child: Padding(

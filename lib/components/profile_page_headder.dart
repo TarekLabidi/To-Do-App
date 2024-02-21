@@ -49,7 +49,7 @@ class GolasPageHeadder extends StatelessWidget {
                 const Text("15 completed tasks",
                     style: TextStyle(
                         color: Color.fromARGB(255, 146, 128, 203),
-                        fontSize: 14,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold)),
               ],
             ),

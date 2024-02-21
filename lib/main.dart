@@ -40,6 +40,11 @@ class MyApp extends StatelessWidget {
                 color: Colors.black,
                 fontWeight: FontWeight.w800,
               ),
+              titleMedium: GoogleFonts.lato(
+                fontSize: 22,
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+              ),
             )),
         home: const PagesController(),
       ),

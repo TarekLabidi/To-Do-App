@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_app/components/goals_card_hp.dart';
+import 'package:to_do_list_app/components/profile_card_hp.dart';
 import 'package:to_do_list_app/components/habits_card.dart';
 import 'package:to_do_list_app/components/home_page_headder.dart';
 import 'package:to_do_list_app/components/task_group_card.dart';

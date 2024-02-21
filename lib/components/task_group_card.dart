@@ -13,7 +13,7 @@ class TaskGroupCard extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Card(
-        elevation: 2,
+        elevation: 0,
         margin: const EdgeInsets.only(bottom: 20),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12),

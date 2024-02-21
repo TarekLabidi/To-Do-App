@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:to_do_list_app/pages/goals_page.dart';
-import 'package:to_do_list_app/pages/habits_page.dart';
+import 'package:hive/hive.dart';
+import 'package:to_do_list_app/components/name_pop_up.dart';
+import 'package:to_do_list_app/pages/profile_page.dart';
+import 'package:to_do_list_app/pages/habits_goals_page.dart';
 import 'package:to_do_list_app/pages/home_page.dart';
 import 'package:to_do_list_app/pages/today_tasks_page.dart';
 import 'package:to_do_list_app/utils/palette.dart';
@@ -14,41 +16,47 @@ class PagesController extends StatefulWidget {
 }
 
 class _PagesControllerState extends State<PagesController> {
+  final _myBox = Hive.box('todo');
   int currentPages = 0;
+
+  bool isentred = false;
   PageController pageController = PageController();
   List<Widget> pages = [
     const HomePage(),
     const TodayTasksPage(),
-    const GoalsPage(),
-    const HabitsPage(),
+    const HabitsGoalsPage(),
+    const ProfilePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        controller: pageController,
-        onPageChanged: (value) {
-          setState(() {
-            currentPages = value;
-          });
-        },
-        children: pages,
-      ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 30,
-        backgroundColor: Palette.purpleColor,
-        shape: const CircleBorder(),
-        onPressed: () {},
-        child: const Icon(
-          Icons.add,
-          size: 30,
-          color: Colors.white,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: customAppBar(),
-    );
+    return (_myBox.get('name') != null)
+        ? Scaffold(
+            body: PageView(
+              controller: pageController,
+              onPageChanged: (value) {
+                setState(() {
+                  currentPages = value;
+                });
+              },
+              children: pages,
+            ),
+            floatingActionButton: FloatingActionButton(
+              elevation: 30,
+              backgroundColor: Palette.purpleColor,
+              shape: const CircleBorder(),
+              onPressed: () {},
+              child: const Icon(
+                Icons.add,
+                size: 30,
+                color: Colors.white,
+              ),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar: customAppBar(),
+          )
+        : NamePopUp();
   }
 
   ClipRRect customAppBar() {
@@ -150,9 +158,10 @@ class _PagesControllerState extends State<PagesController> {
                   color: Colors.transparent,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 25.0, vertical: 8),
+                        horizontal: 25.0, vertical: 4),
                     child: FaIcon(
-                      FontAwesomeIcons.recycle,
+                      FontAwesomeIcons.solidCircleUser,
+                      size: 30,
                       color: (currentPages == 3)
                           ? const Color.fromARGB(255, 53, 4, 200)
                           : const Color.fromRGBO(158, 131, 238, 1.0),

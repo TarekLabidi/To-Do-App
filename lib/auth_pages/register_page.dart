@@ -4,7 +4,6 @@ import 'package:to_do_list_app/auth_pages/login_page.dart';
 import 'package:to_do_list_app/components/login_register_buttom.dart';
 import 'package:to_do_list_app/components/text_field.dart';
 import 'package:to_do_list_app/services/auth_methods.dart';
-import 'package:to_do_list_app/utils/utils.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -16,16 +15,12 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final nameController = TextEditingController();
+
   final AuthMethods _authgate = AuthMethods();
 
   void signUp() {
-    if (nameController.text.isEmpty) {
-      showSnackBar(context, 'Enter Your Name Please');
-    } else {
-      _authgate.signUpWithEmail(
-          emailController.text, passwordController.text, context);
-    }
+    _authgate.signUpWithEmail(
+        emailController.text, passwordController.text, context);
   }
 
   @override
@@ -33,7 +28,6 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
-    nameController.dispose();
   }
 
   bool isObscured = true;
@@ -54,20 +48,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   fontWeight: FontWeight.w800, fontSize: 36, letterSpacing: 1),
             ),
             SizedBox(height: height / 18),
-            Text(
-              'Name',
-              style: GoogleFonts.lato(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 18,
-                  color: Colors.black),
-            ),
-            TextFieldE(
-              hinttext: 'Tarek Labidi',
-              isObscure: false,
-              changeObscure: (value) {},
-              isPassword: false,
-              controller: nameController,
-            ),
             SizedBox(height: height / 18),
             Text(
               'Email Address',
