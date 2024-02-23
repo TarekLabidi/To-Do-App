@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
 class MiddleFloationgButton extends StatefulWidget {
@@ -167,13 +168,13 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                                     label: Row(
                                       children: [
                                         FaIcon(
-                                          FontAwesomeIcons.recycle,
+                                          FontAwesomeIcons.icons,
                                           size: 20,
                                         ),
                                         SizedBox(
                                           width: 5,
                                         ),
-                                        Text('Habit'),
+                                        Text('Icon'),
                                       ],
                                     ),
                                   ),
@@ -206,6 +207,14 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                                   GestureDetector(
                                     onTap: () {
                                       if (!isEmpty) {
+                                        OnlineStorage().createTask(
+                                            title: taskNameController.text,
+                                            desc: descNameController.text,
+                                            taskGroup: 'Personal',
+                                            category: 'inbox',
+                                            time: DateTime.now().toString(),
+                                            kind: "Normal",
+                                            priority: 4);
                                         Navigator.pop(context);
                                         taskNameController.clear();
                                         descNameController.clear();

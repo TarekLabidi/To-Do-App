@@ -21,7 +21,7 @@ class _TasksCardState extends State<TasksCard> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: widget.height / 7.5,
+      height: widget.height / 7.2,
       margin: const EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 20),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 255, 255, 255),

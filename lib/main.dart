@@ -4,8 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_list_app/firebase_options.dart';
+import 'package:to_do_list_app/popUpPages/add_goal_page.dart';
 import 'package:to_do_list_app/pages/page_controller.dart';
-import 'package:to_do_list_app/services/auth_methods.dart';
+import 'package:to_do_list_app/popUpPages/edit_goal_page.dart';
+import 'package:to_do_list_app/services/auth/auth_methods.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             )),
-        home: const PagesController(),
+        home: const EdirtGoalPage(),
       ),
     );
   }

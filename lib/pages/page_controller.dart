@@ -32,8 +32,6 @@ class _PagesControllerState extends State<PagesController> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     return (_myBox.get('name') != null)
         ? Scaffold(
             body: PageView(
@@ -45,7 +43,7 @@ class _PagesControllerState extends State<PagesController> {
               },
               children: pages,
             ),
-            floatingActionButton: MiddleFloationgButton(),
+            floatingActionButton: const MiddleFloationgButton(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: customAppBar(),
@@ -80,8 +78,9 @@ class _PagesControllerState extends State<PagesController> {
                 child: Container(
                   color: Colors.transparent,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25.0, vertical: 8),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.064,
+                        vertical: 8),
                     child: FaIcon(
                       FontAwesomeIcons.house,
                       color: (currentPages == 0)
@@ -103,8 +102,9 @@ class _PagesControllerState extends State<PagesController> {
                 child: Container(
                   color: Colors.transparent,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30.0, vertical: 8),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.064,
+                        vertical: 8),
                     child: FaIcon(
                       FontAwesomeIcons.solidCalendarDays,
                       color: (currentPages == 1)
@@ -129,8 +129,9 @@ class _PagesControllerState extends State<PagesController> {
                 child: Container(
                   color: Colors.transparent,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25.0, vertical: 8),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.064,
+                        vertical: 8),
                     child: FaIcon(
                       FontAwesomeIcons.trophy,
                       color: (currentPages == 2)
@@ -151,8 +152,9 @@ class _PagesControllerState extends State<PagesController> {
                 child: Container(
                   color: Colors.transparent,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25.0, vertical: 4),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.064,
+                        vertical: 4),
                     child: FaIcon(
                       FontAwesomeIcons.solidCircleUser,
                       size: 30,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list_app/components/habits_goals_list_view.dart';
 import 'package:to_do_list_app/dummy_data.dart';
+import 'package:to_do_list_app/popUpPages/add_goal_page.dart';
+import 'package:to_do_list_app/popUpPages/add_habbit_page.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class HabitsGoalsPage extends StatefulWidget {
@@ -51,7 +53,12 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
                         ),
                         const Spacer(),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const AddGoalPage()));
+                          },
                           icon: const Icon(Icons.add),
                         ),
                         SizedBox(
@@ -91,7 +98,13 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
                         ),
                         const Spacer(),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AddHabbitPage()));
+                          },
                           icon: const Icon(Icons.add),
                         ),
                         SizedBox(
@@ -123,45 +136,6 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
                           )
                         : const SizedBox.shrink(),
                     sameGap(height),
-                    Row(
-                      children: [
-                        Text(
-                          'Task groups',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const Spacer(),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.add),
-                        ),
-                        SizedBox(
-                          width: width * 0.009,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isTaskGroupShown = !isTaskGroupShown;
-                            });
-                          },
-                          icon: RotatedBox(
-                            quarterTurns: (isGoalsShown) ? -1 : 1,
-                            child: const Icon(
-                              Icons.arrow_forward_ios,
-                              size: 20.0,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    (isTaskGroupShown)
-                        ? HabitsGoalsListView(
-                            height: height,
-                            widht: width,
-                            goalOrHabit: 'Task group',
-                            lists: taskGroups,
-                          )
-                        : const SizedBox.shrink(),
                   ],
                 ),
               ),
