@@ -110,8 +110,31 @@ class _AddHabbitPageState extends State<AddHabbitPage> {
                                 ),
                                 const SizedBox(
                                   width: 20,
-                                )
+                                ),
                               ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: height * 0.05),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: height * 0.06,
+                            decoration: BoxDecoration(
+                              color: Palette.purpleColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Done",
+                                style: GoogleFonts.roboto(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         )

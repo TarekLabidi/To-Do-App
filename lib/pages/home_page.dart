@@ -4,6 +4,8 @@ import 'package:to_do_list_app/components/habits_card.dart';
 import 'package:to_do_list_app/components/home_page_headder.dart';
 import 'package:to_do_list_app/components/task_group_card.dart';
 import 'package:to_do_list_app/dummy_data.dart';
+import 'package:to_do_list_app/services/firebaseStroage/task_model.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class HomePage extends StatefulWidget {
@@ -48,16 +50,17 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: height / 5.5,
                       child: ListView.builder(
-                          itemCount: goals.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            final goal = goals[index];
-                            return GoalssCardHp(
-                              height: height,
-                              width: width,
-                              goal: goal,
-                            );
-                          }),
+                        itemCount: goals.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          final goal = goals[index];
+                          return GoalssCardHp(
+                            height: height,
+                            width: width,
+                            goal: goal,
+                          );
+                        },
+                      ),
                     ),
                     sameGap(height),
                     Text(
@@ -65,16 +68,6 @@ class _HomePageState extends State<HomePage> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     sameGap(height),
-                    ListView.builder(
-                        itemCount: taskGroups.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final taskGroup = taskGroups[index];
-                          return TaskGroupCard(
-                            taskGroup: taskGroup,
-                          );
-                        }),
                   ],
                 ),
               ),

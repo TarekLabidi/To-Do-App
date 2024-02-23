@@ -3,6 +3,8 @@ import 'package:to_do_list_app/components/days_card.dart';
 import 'package:to_do_list_app/components/filters_card.dart';
 import 'package:to_do_list_app/components/tasks_card.dart';
 import 'package:to_do_list_app/dummy_data.dart';
+import 'package:to_do_list_app/services/firebaseStroage/task_model.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class TodayTasksPage extends StatefulWidget {
@@ -117,17 +119,27 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
                   ),
                 ),
                 sameGap2(height),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: getList().length,
-                    itemBuilder: (context, index) {
-                      final list = getList()[index];
-                      return TasksCard(
-                        height: height,
-                        list: list,
+                StreamBuilder<List<Task>>(
+                  stream: OnlineStorage().getTasks('Normal'),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final tasks = snapshot.data;
+                      return ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: tasks!.map(buildTask).toList(),
                       );
-                    },
-                  ),
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text(
+                          snapshot.toString(),
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
                 ),
               ],
             ),
@@ -136,4 +148,6 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
       ),
     );
   }
+
+  Widget buildTask(Task task) => TasksCard(task: task);
 }

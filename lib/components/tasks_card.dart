@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:to_do_list_app/services/firebaseStroage/task_model.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class TasksCard extends StatefulWidget {
-  final Map<String, dynamic> list;
-  const TasksCard({super.key, required this.height, required this.list});
-
-  final double height;
+  final Task task;
+  const TasksCard({super.key, required this.task});
 
   @override
   State<TasksCard> createState() => _TasksCardState();
@@ -19,9 +18,10 @@ class _TasksCardState extends State<TasksCard> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Container(
       width: double.infinity,
-      height: widget.height / 7.2,
+      height: height / 7.2,
       margin: const EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 20),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 255, 255, 255),
@@ -39,7 +39,7 @@ class _TasksCardState extends State<TasksCard> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  widget.list['title'],
+                  widget.task.category,
                   style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class _TasksCardState extends State<TasksCard> {
               ],
             ),
             Text(
-              widget.list['tasks'][0],
+              widget.task.title,
               style:
                   GoogleFonts.lato(fontSize: 17, fontWeight: FontWeight.w700),
             ),
@@ -77,27 +77,6 @@ class _TasksCardState extends State<TasksCard> {
                   ),
                 ),
                 const Spacer(),
-                (widget.list['category'] != null)
-                    ? Container(
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 255, 236, 207),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 4.0, horizontal: 15),
-                          child: Text(
-                            widget.list['category'],
-                            style: GoogleFonts.lato(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.orange),
-                          ),
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-                const SizedBox(
-                  width: 10,
-                ),
                 GestureDetector(
                   onTap: () {
                     setState(() {

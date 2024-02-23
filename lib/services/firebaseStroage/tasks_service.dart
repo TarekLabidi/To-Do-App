@@ -27,9 +27,26 @@ class OnlineStorage {
 
     await _firestore
         .collection('users')
-        .doc(currentUserId)
-        .collection('tasks')
-        .doc(kind)
+        // .doc(currentUserId)
+        .doc('7W9HnxuVvzPmzoqAbcoJ4lKcEXB2')
+        .collection('Normal')
+        .doc(title)
         .set(newtask.toMap());
+  }
+
+  //get tasks
+  Stream<List<Task>> getTasks(String kind) {
+    // final String currentUserId = _firebaseAuth.currentUser!.uid;
+    print('ok');
+    return _firestore
+        .collection('users')
+        .doc('7W9HnxuVvzPmzoqAbcoJ4lKcEXB2')
+        // .doc(currentUserId)
+        .collection(kind)
+        .snapshots()
+        .map(
+          (snapshot) =>
+              snapshot.docs.map((doc) => Task.fromJson(doc.data())).toList(),
+        );
   }
 }

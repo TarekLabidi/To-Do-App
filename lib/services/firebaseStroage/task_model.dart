@@ -27,4 +27,14 @@ class Task {
       'priority': priority
     };
   }
+
+  static Task fromJson(Map<String, dynamic> json) => Task(
+        title: json["Tasktitle"],
+        desc: json["desc"],
+        taskGroup: json["taskGroup"],
+        category: json["category"],
+        time: json["time"],
+        isCompleted: json["isCompleted"],
+        priority: json["priority"],
+      );
 }

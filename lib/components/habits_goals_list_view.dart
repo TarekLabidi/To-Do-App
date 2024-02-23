@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_app/utils/palette.dart';
+import 'package:to_do_list_app/popUpPages/edit_goal_page.dart';
+import 'package:to_do_list_app/popUpPages/edit_habbit_page.dart';
 
 class HabitsGoalsListView extends StatelessWidget {
   const HabitsGoalsListView(
@@ -24,58 +25,55 @@ class HabitsGoalsListView extends StatelessWidget {
           itemCount: lists.length,
           itemBuilder: (context, index) {
             final habit = lists[index];
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: Text.rich(
-                TextSpan(
-                  text: '  #  ',
-                  style: const TextStyle(
-                    fontSize: 29.0,
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromARGB(255, 99, 44, 249),
+            return GestureDetector(
+              onTap: () {
+                if (goalOrHabit == 'goal') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EdirtGoalPage()));
+                } else {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EditHabbitPage()));
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: Text.rich(
+                  TextSpan(
+                    text: '  #  ',
+                    style: const TextStyle(
+                      fontSize: 29.0,
+                      fontWeight: FontWeight.w700,
+                      color: Color.fromARGB(255, 99, 44, 249),
+                    ),
+                    children: [
+                      TextSpan(
+                        text: '${habit["title"].toString()} \n',
+                        style: const TextStyle(
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            '               ${List.from(habit["tasks"]).length} Tasks',
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
-                  children: [
-                    TextSpan(
-                      text: '${habit["title"].toString()} \n',
-                      style: const TextStyle(
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
-                    ),
-                    TextSpan(
-                      text:
-                          '               ${List.from(habit["tasks"]).length} Tasks',
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
                 ),
               ),
             );
           },
         ),
-        SizedBox(
-          height: height * 0.01,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: widht * 0.03),
-            GestureDetector(onTap: () {}, child: const Icon(Icons.edit)),
-            SizedBox(width: widht * 0.03),
-            Text(
-              'Manage $goalOrHabit',
-              style: const TextStyle(
-                  fontSize: 17,
-                  color: Palette.greyColor,
-                  fontWeight: FontWeight.w500),
-            )
-          ],
-        )
       ],
     );
   }

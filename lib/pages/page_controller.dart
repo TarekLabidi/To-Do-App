@@ -48,125 +48,128 @@ class _PagesControllerState extends State<PagesController> {
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: customAppBar(),
           )
-        : NamePopUp();
+        : const NamePopUp();
   }
 
-  ClipRRect customAppBar() {
-    return ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-        child: BottomAppBar(
-          height: 60,
-          color: const Color.fromRGBO(237, 232, 255, 1),
-          shape: const AutomaticNotchedShape(
-            RoundedRectangleBorder(),
-            StadiumBorder(),
-          ),
-          notchMargin: 5,
-          clipBehavior: Clip.antiAlias,
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    pageController.animateToPage(0,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.linear);
-                  });
-                },
-                // adding more space to the gestureDetector becaus the icons are small
-                child: Container(
-                  color: Colors.transparent,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.064,
-                        vertical: 8),
-                    child: FaIcon(
-                      FontAwesomeIcons.house,
-                      color: (currentPages == 0)
-                          ? const Color.fromARGB(255, 53, 4, 200)
-                          : const Color.fromRGBO(158, 131, 238, 1.0),
+  Container customAppBar() {
+    return Container(
+      color: const Color.fromARGB(255, 218, 253, 253),
+      child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+          child: BottomAppBar(
+            height: 60,
+            color: const Color.fromRGBO(237, 232, 255, 1),
+            shape: const AutomaticNotchedShape(
+              RoundedRectangleBorder(),
+              StadiumBorder(),
+            ),
+            notchMargin: 5,
+            clipBehavior: Clip.antiAlias,
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      pageController.animateToPage(0,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.linear);
+                    });
+                  },
+                  // adding more space to the gestureDetector becaus the icons are small
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.064,
+                          vertical: 8),
+                      child: FaIcon(
+                        FontAwesomeIcons.house,
+                        color: (currentPages == 0)
+                            ? const Color.fromARGB(255, 53, 4, 200)
+                            : const Color.fromRGBO(158, 131, 238, 1.0),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              // ignore: deprecated_member_use
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    pageController.animateToPage(1,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.linear);
-                  });
-                },
-                child: Container(
-                  color: Colors.transparent,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.064,
-                        vertical: 8),
-                    child: FaIcon(
-                      FontAwesomeIcons.solidCalendarDays,
-                      color: (currentPages == 1)
-                          ? const Color.fromARGB(255, 53, 4, 200)
-                          : const Color.fromRGBO(158, 131, 238, 1.0),
+                // ignore: deprecated_member_use
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      pageController.animateToPage(1,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.linear);
+                    });
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.064,
+                          vertical: 8),
+                      child: FaIcon(
+                        FontAwesomeIcons.solidCalendarDays,
+                        color: (currentPages == 1)
+                            ? const Color.fromARGB(255, 53, 4, 200)
+                            : const Color.fromRGBO(158, 131, 238, 1.0),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.13,
-              ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.13,
+                ),
 
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    pageController.animateToPage(2,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.linear);
-                  });
-                },
-                child: Container(
-                  color: Colors.transparent,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.064,
-                        vertical: 8),
-                    child: FaIcon(
-                      FontAwesomeIcons.trophy,
-                      color: (currentPages == 2)
-                          ? const Color.fromARGB(255, 53, 4, 200)
-                          : const Color.fromRGBO(158, 131, 238, 1.0),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      pageController.animateToPage(2,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.linear);
+                    });
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.064,
+                          vertical: 8),
+                      child: FaIcon(
+                        FontAwesomeIcons.trophy,
+                        color: (currentPages == 2)
+                            ? const Color.fromARGB(255, 53, 4, 200)
+                            : const Color.fromRGBO(158, 131, 238, 1.0),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    pageController.animateToPage(3,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.linear);
-                  });
-                },
-                child: Container(
-                  color: Colors.transparent,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.064,
-                        vertical: 4),
-                    child: FaIcon(
-                      FontAwesomeIcons.solidCircleUser,
-                      size: 30,
-                      color: (currentPages == 3)
-                          ? const Color.fromARGB(255, 53, 4, 200)
-                          : const Color.fromRGBO(158, 131, 238, 1.0),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      pageController.animateToPage(3,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.linear);
+                    });
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.064,
+                          vertical: 4),
+                      child: FaIcon(
+                        FontAwesomeIcons.solidCircleUser,
+                        size: 30,
+                        color: (currentPages == 3)
+                            ? const Color.fromARGB(255, 53, 4, 200)
+                            : const Color.fromRGBO(158, 131, 238, 1.0),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ));
+              ],
+            ),
+          )),
+    );
   }
 }

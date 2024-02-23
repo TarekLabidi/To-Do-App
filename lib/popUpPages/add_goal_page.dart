@@ -122,7 +122,31 @@ class _AddGoalPageState extends State<AddGoalPage> {
                               ],
                             ),
                           ),
-                        )
+                        ),
+                        SizedBox(height: height * 0.02),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: height * 0.06,
+                            decoration: BoxDecoration(
+                              color: Palette.purpleColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Done",
+                                style: GoogleFonts.roboto(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: height * 0.1),
                       ],
                     ),
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:to_do_list_app/components/menu_widget.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
@@ -13,6 +14,8 @@ class MiddleFloationgButton extends StatefulWidget {
 }
 
 class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
+  String? dropdownValuePriority = 'Priority 4';
+  IconData? dropdownValueIcon = FontAwesomeIcons.suitcase;
   final taskNameController = TextEditingController();
   final descNameController = TextEditingController();
 
@@ -120,65 +123,20 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                                   },
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Chip(
-                                      label: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.calendar_today,
-                                        size: 20,
-                                        color: Palette.purpleColorscondary,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        'Today',
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 163, 137, 255),
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  )),
-                                  SizedBox(
-                                    width: width * 0.02,
-                                  ),
-                                  const Chip(
-                                      label: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.flag,
-                                        size: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text('Priority'),
-                                    ],
-                                  )),
-                                  SizedBox(
-                                    width: width * 0.02,
-                                  ),
-                                  const Chip(
-                                    label: Row(
-                                      children: [
-                                        FaIcon(
-                                          FontAwesomeIcons.icons,
-                                          size: 20,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text('Icon'),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                              MenuWidget(
+                                width: width,
+                                dropdownValueIcon: dropdownValueIcon,
+                                dropdownValueString: dropdownValuePriority,
+                                chosed: (value) {
+                                  setState(() {
+                                    dropdownValuePriority = value;
+                                  });
+                                },
+                                chosed1: (value) {
+                                  setState(() {
+                                    dropdownValueIcon = value;
+                                  });
+                                },
                               ),
                               const Divider(
                                 thickness: 1,
@@ -248,7 +206,7 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                             ],
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 );
