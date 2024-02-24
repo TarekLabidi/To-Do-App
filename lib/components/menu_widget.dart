@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:to_do_list_app/components/select_time_widget.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
-class MenuWidget extends StatelessWidget {
+class MenuWidget extends StatefulWidget {
   const MenuWidget(
       {super.key,
       required this.width,
@@ -19,36 +21,20 @@ class MenuWidget extends StatelessWidget {
   final IconData? dropdownValueIcon;
 
   @override
+  State<MenuWidget> createState() => _MenuWidgetState();
+}
+
+class _MenuWidgetState extends State<MenuWidget> {
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         const SizedBox(
           width: 10,
         ),
-        GestureDetector(
-          onTap: () {},
-          child: const Chip(
-              label: Row(
-            children: [
-              Icon(
-                Icons.calendar_today,
-                size: 20,
-                color: Palette.purpleColorscondary,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                'Today',
-                style: TextStyle(
-                    color: Color.fromARGB(255, 163, 137, 255),
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          )),
-        ),
+        SelectTimeWidget(),
         SizedBox(
-          width: width * 0.02,
+          width: widget.width * 0.02,
         ),
         Container(
           height: 40,
@@ -63,7 +49,7 @@ class MenuWidget extends StatelessWidget {
                   fontSize: 16,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
-              value: dropdownValueString,
+              value: widget.dropdownValueString,
               iconSize: 20,
               items: const [
                 DropdownMenuItem(
@@ -115,13 +101,13 @@ class MenuWidget extends StatelessWidget {
                 ),
               ],
               onChanged: (String? newValue) {
-                chosed(newValue);
+                widget.chosed(newValue);
               },
             ),
           ),
         ),
         SizedBox(
-          width: width * 0.02,
+          width: widget.width * 0.02,
         ),
         Container(
           height: 40,
@@ -136,7 +122,7 @@ class MenuWidget extends StatelessWidget {
                   fontSize: 16,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
-              value: dropdownValueIcon,
+              value: widget.dropdownValueIcon,
               iconSize: 20,
               items: const [
                 DropdownMenuItem(
@@ -205,7 +191,7 @@ class MenuWidget extends StatelessWidget {
                 ),
               ],
               onChanged: (IconData? newValue) {
-                chosed1(newValue);
+                widget.chosed1(newValue);
               },
             ),
           ),

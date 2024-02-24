@@ -34,6 +34,7 @@ dependencies:
   firebase_core: ^2.25.4
   flutter:
     sdk: flutter
+  flutter_time_picker_spinner: ^2.0.0
   font_awesome_flutter: ^10.7.0
   google_fonts: ^6.1.0
   google_sign_in: ^6.2.1

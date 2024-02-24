@@ -68,6 +68,16 @@ class _HomePageState extends State<HomePage> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     sameGap(height),
+                    ListView.builder(
+                        itemCount: taskGroups.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final taskGroup = taskGroups[index];
+                          return TaskGroupCard(
+                            taskGroup: taskGroup,
+                          );
+                        }),
                   ],
                 ),
               ),
