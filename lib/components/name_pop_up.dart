@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:to_do_list_app/components/text_field.dart';
 import 'package:to_do_list_app/pages/page_controller.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
 class NamePopUp extends StatefulWidget {
@@ -20,7 +21,6 @@ class _NamePopUpState extends State<NamePopUp> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    final _myBox = Hive.box('todo');
     @override
     void initState() {
       super.initState();
@@ -81,7 +81,8 @@ class _NamePopUpState extends State<NamePopUp> {
                       child: TextButton(
                           onPressed: () {
                             if (nameController.text.isNotEmpty) {
-                              _myBox.put('name', nameController.text);
+                              OnlineStorage()
+                                  .createName(name: nameController.text);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

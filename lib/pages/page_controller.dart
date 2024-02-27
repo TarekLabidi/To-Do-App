@@ -32,23 +32,20 @@ class _PagesControllerState extends State<PagesController> {
 
   @override
   Widget build(BuildContext context) {
-    return (_myBox.get('name') != null)
-        ? Scaffold(
-            body: PageView(
-              controller: pageController,
-              onPageChanged: (value) {
-                setState(() {
-                  currentPages = value;
-                });
-              },
-              children: pages,
-            ),
-            floatingActionButton: const MiddleFloationgButton(),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: customAppBar(),
-          )
-        : const NamePopUp();
+    return Scaffold(
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (value) {
+          setState(() {
+            currentPages = value;
+          });
+        },
+        children: pages,
+      ),
+      floatingActionButton: const MiddleFloationgButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: customAppBar(),
+    );
   }
 
   Container customAppBar() {

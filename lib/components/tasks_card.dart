@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/task_model.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 import 'package:to_do_list_app/utils/utils.dart';
@@ -47,7 +49,34 @@ class _TasksCardState extends State<TasksCard> {
                       letterSpacing: 1.5),
                 ),
                 const Spacer(),
-                containerIcon(30, 30, Icons.flutter_dash_outlined, 20),
+                Container(
+                  decoration: BoxDecoration(
+                      color: context
+                          .read<ToDoProvider>()
+                          .getPrioritySecondary(widget.task.priority),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Icon(
+                    Icons.flag,
+                    size: 25,
+                    color: context
+                        .read<ToDoProvider>()
+                        .getPriority(widget.task.priority),
+                  ),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                containerIcon(
+                    30,
+                    30,
+                    context.read<ToDoProvider>().getIcon(widget.task.icon),
+                    20,
+                    context
+                        .read<ToDoProvider>()
+                        .getPriority(widget.task.priority),
+                    context
+                        .read<ToDoProvider>()
+                        .getPrioritySecondary(widget.task.priority)),
                 const SizedBox(
                   width: 10,
                 ),
@@ -64,19 +93,24 @@ class _TasksCardState extends State<TasksCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const FaIcon(
-                  FontAwesomeIcons.solidClock,
-                  color: Palette.purpleColorscondary,
-                  size: 15,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '12:00 PM',
-                  style: GoogleFonts.lato(
-                    color: Palette.purpleColorscondary,
-                  ),
+                Row(
+                  children: [
+                    const FaIcon(
+                      FontAwesomeIcons.solidClock,
+                      color: Palette.purpleColorscondary,
+                      size: 15,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      widget.task.date.substring(0, 5),
+                      style: GoogleFonts.lato(
+                        color: Palette.purpleColorscondary,
+                      ),
+                    ),
+                  ],
                 ),
                 const Spacer(),
+                const SizedBox(width: 10),
                 GestureDetector(
                   onTap: () {
                     setState(() {

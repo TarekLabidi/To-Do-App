@@ -1,40 +1,47 @@
+import 'package:flutter/material.dart';
+
 class Task {
   final String title;
-  final String desc;
+
   final String taskGroup;
   final String category;
-  final String time;
+
   final bool isCompleted;
   final int priority;
+  final String date;
+  final int icon;
+  final String kind;
 
   Task(
       {required this.title,
-      required this.desc,
       required this.taskGroup,
       required this.category,
-      required this.time,
       required this.isCompleted,
-      required this.priority});
+      required this.priority,
+      required this.date,
+      required this.icon,
+      required this.kind});
 
   Map<String, dynamic> toMap() {
     return {
       'Tasktitle': title,
-      'desc': desc,
       'taskGroup': taskGroup,
       'category': category,
-      'time': time,
       'isCompleted': isCompleted,
-      'priority': priority
+      'priority': priority,
+      'date': date,
+      'icon': icon,
+      'kind': kind
     };
   }
 
   static Task fromJson(Map<String, dynamic> json) => Task(
-        title: json["Tasktitle"],
-        desc: json["desc"],
-        taskGroup: json["taskGroup"],
-        category: json["category"],
-        time: json["time"],
-        isCompleted: json["isCompleted"],
-        priority: json["priority"],
-      );
+      title: json["Tasktitle"],
+      taskGroup: json["taskGroup"],
+      category: json["category"],
+      isCompleted: json["isCompleted"],
+      priority: json["priority"],
+      date: json['date'],
+      icon: json['icon'],
+      kind: json["kind"]);
 }

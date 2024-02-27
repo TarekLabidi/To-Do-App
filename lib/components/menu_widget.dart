@@ -18,7 +18,7 @@ class MenuWidget extends StatefulWidget {
   final ValueChanged chosed;
   final ValueChanged chosed1;
   final String? dropdownValueString;
-  final IconData? dropdownValueIcon;
+  final int? dropdownValueIcon;
 
   @override
   State<MenuWidget> createState() => _MenuWidgetState();
@@ -32,7 +32,7 @@ class _MenuWidgetState extends State<MenuWidget> {
         const SizedBox(
           width: 10,
         ),
-        SelectTimeWidget(),
+        const SelectTimeWidget(),
         SizedBox(
           width: widget.width * 0.02,
         ),
@@ -116,7 +116,7 @@ class _MenuWidgetState extends State<MenuWidget> {
               border: Border.all(color: Colors.grey)),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: DropdownButton<IconData>(
+            child: DropdownButton<int>(
               elevation: 0,
               style: GoogleFonts.roboto(
                   fontSize: 16,
@@ -126,7 +126,7 @@ class _MenuWidgetState extends State<MenuWidget> {
               iconSize: 20,
               items: const [
                 DropdownMenuItem(
-                  value: FontAwesomeIcons.suitcase,
+                  value: 0,
                   child: Row(
                     children: [
                       Icon(
@@ -141,7 +141,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                   ),
                 ),
                 DropdownMenuItem(
-                  value: Icons.flutter_dash,
+                  value: 1,
                   child: Row(
                     children: [
                       Icon(Icons.flutter_dash,
@@ -154,7 +154,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                   ),
                 ),
                 DropdownMenuItem(
-                  value: FontAwesomeIcons.book,
+                  value: 2,
                   child: Row(
                     children: [
                       Icon(FontAwesomeIcons.book, color: Palette.purpleColor),
@@ -166,19 +166,19 @@ class _MenuWidgetState extends State<MenuWidget> {
                   ),
                 ),
                 DropdownMenuItem(
-                  value: FontAwesomeIcons.dumbbell,
+                  value: 3,
                   child: Row(
                     children: [
                       Icon(FontAwesomeIcons.dumbbell, color: Colors.green),
                       SizedBox(width: 7),
                       Text(
-                        'Training',
+                        'Sport',
                       ),
                     ],
                   ),
                 ),
                 DropdownMenuItem(
-                  value: Icons.help_outline,
+                  value: 4,
                   child: Row(
                     children: [
                       Icon(Icons.help_outline, color: Colors.amber),
@@ -190,7 +190,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                   ),
                 ),
               ],
-              onChanged: (IconData? newValue) {
+              onChanged: (int? newValue) {
                 widget.chosed1(newValue);
               },
             ),

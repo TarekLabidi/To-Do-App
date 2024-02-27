@@ -68,16 +68,46 @@ class _HomePageState extends State<HomePage> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     sameGap(height),
-                    ListView.builder(
-                        itemCount: taskGroups.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final taskGroup = taskGroups[index];
-                          return TaskGroupCard(
-                            taskGroup: taskGroup,
+                    StreamBuilder<List<String>>(
+                      stream: OnlineStorage().getGroupTasks(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final groupTasks = snapshot.data!;
+                          OnlineStorage()
+                              .getName()
+                              .then((value) => print(value));
+                          return ListView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children: groupTasks
+                                .map((taskGroup) => buildGroupTask(taskGroup))
+                                .toList(),
                           );
-                        }),
+                        } else if (snapshot.hasError) {
+                          print("error");
+                          return Center(
+                            child: Text(
+                              snapshot.toString(),
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          );
+                        } else {
+                          print("error1");
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      },
+                    )
+                    // ListView.builder(
+                    //     itemCount: taskGroups.length,
+                    //     shrinkWrap: true,
+                    //     physics: const NeverScrollableScrollPhysics(),
+                    //     itemBuilder: (context, index) {
+                    //       final taskGroup = taskGroups[index];
+                    //       return TaskGroupCard(
+                    //         taskGroup: taskGroup,
+                    //       );
+                    //     }),
                   ],
                 ),
               ),
@@ -86,5 +116,10 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Widget buildGroupTask(String taskGroup) {
+    print("object");
+    return TaskGroupCard(taskGroup: taskGroup);
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:to_do_list_app/components/clock_widget.dart';
+import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
 class SelectTimeWidget extends StatefulWidget {
@@ -49,7 +51,8 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
                               _focusedDay = focusedDay;
                               String finalDay = DateFormat('dd MM yyyy')
                                   .format(_selectedDay!);
-                              print(finalDay);
+                              context.read<ToDoProvider>().getDay(finalDay);
+                              finalDay = '';
                             });
                             showDialog(
                                 context: context,
@@ -74,25 +77,32 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
               );
             });
       },
-      child: const Chip(
-          label: Row(
-        children: [
-          Icon(
-            Icons.calendar_today,
-            size: 20,
-            color: Palette.purpleColorscondary,
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Text(
-            'Today',
-            style: TextStyle(
-                color: Color.fromARGB(255, 163, 137, 255),
-                fontWeight: FontWeight.bold),
-          ),
-        ],
-      )),
+      child: Chip(
+          label: (context.watch<ToDoProvider>().day.length < 4)
+              ? const Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_today,
+                      size: 20,
+                      color: Palette.purpleColorscondary,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'Today',
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 163, 137, 255),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                )
+              : Text(
+                  context.watch<ToDoProvider>().day.substring(0, 5),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 163, 137, 255),
+                      fontWeight: FontWeight.bold),
+                )),
     );
   }
 }

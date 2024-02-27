@@ -7,6 +7,7 @@ import 'package:to_do_list_app/auth_pages/first_time_gate.dart';
 import 'package:to_do_list_app/firebase_options.dart';
 import 'package:to_do_list_app/pages/page_controller.dart';
 import 'package:to_do_list_app/services/auth/auth_methods.dart';
+import 'package:to_do_list_app/services/data/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         ),
         StreamProvider(
             create: (context) => context.read<AuthMethods>().authState,
-            initialData: null)
+            initialData: null),
+        ChangeNotifierProvider(create: (context) => ToDoProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -47,7 +49,7 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             )),
-        home: const PagesController(),
+        home: const FirstTimeGate(),
       ),
     );
   }

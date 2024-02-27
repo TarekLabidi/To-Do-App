@@ -41,7 +41,7 @@ class GoalssCardHp extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                   const Spacer(),
-                  containerIcon(30, 30, Icons.work, 20)
+                  // containerIcon(30, 30, Icons.work, 20)
                 ],
               ),
               SizedBox(height: height / 100),

@@ -89,8 +89,8 @@ class _AddHabbitPageState extends State<AddHabbitPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(width: width * 0.04),
-                                containerIcon(
-                                    50, 50, FontAwesomeIcons.suitcase, 30),
+                                // containerIcon(
+                                //     50, 50, FontAwesomeIcons.suitcase, 30),
                                 const Spacer(),
                                 Container(
                                   decoration: BoxDecoration(

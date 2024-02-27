@@ -20,19 +20,20 @@ sameGap2(double height) {
   );
 }
 
-containerIcon(double height, double width, IconData icon, double iconSize) {
+containerIcon(double height, double width, IconData icon, double iconSize,
+    Color colorPrimary, Color colorSecondary) {
   return Container(
     width: height,
     height: width,
     decoration: BoxDecoration(
-      color: const Color.fromARGB(255, 255, 208, 232),
+      color: colorSecondary,
       borderRadius: BorderRadius.circular(10),
     ),
     child: Center(
       child: Icon(
         icon,
         size: iconSize,
-        color: const Color.fromARGB(255, 238, 58, 151),
+        color: colorPrimary,
       ),
     ),
   );

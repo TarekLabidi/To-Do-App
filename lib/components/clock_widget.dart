@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
 class ClockWidget extends StatefulWidget {
@@ -19,7 +21,7 @@ class _ClockWidgetState extends State<ClockWidget> {
     DateTime? _dateTime;
     return Container(
       margin: EdgeInsets.symmetric(
-        vertical: MediaQuery.of(context).size.height * 0.29,
+        vertical: MediaQuery.of(context).size.height * 0.28,
         horizontal: MediaQuery.of(context).size.width * 0.1,
       ),
       decoration: BoxDecoration(
@@ -40,6 +42,8 @@ class _ClockWidgetState extends State<ClockWidget> {
               setState(() {
                 _dateTime = time;
                 String finalTime = DateFormat('HH:mm').format(_dateTime!);
+                context.read<ToDoProvider>().getTime(finalTime);
+                finalTime = '';
               });
             },
           ),

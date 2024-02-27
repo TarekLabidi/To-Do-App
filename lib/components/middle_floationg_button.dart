@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do_list_app/components/menu_widget.dart';
+import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
@@ -15,9 +16,8 @@ class MiddleFloationgButton extends StatefulWidget {
 
 class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
   String? dropdownValuePriority = 'Priority 4';
-  IconData? dropdownValueIcon = FontAwesomeIcons.suitcase;
+  int? dropdownValueIcon = 1;
   final taskNameController = TextEditingController();
-  final descNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +29,18 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
       shape: const CircleBorder(),
       onPressed: () {
         bool isEmpty = true;
-
         showDialog(
           barrierDismissible: true,
           context: context,
           builder: (context) {
             return StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
-                // ignore: deprecated_member_use
                 return WillPopScope(
                   onWillPop: () async {
                     taskNameController.clear();
-                    descNameController.clear();
-                    return true; // Allow dialog to be dismissed
+
+                    context.read<ToDoProvider>().disposeVars();
+                    return true;
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,11 +57,16 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                                 height: height * 0.01,
                               ),
                               SizedBox(
-                                height: height * 0.07,
+                                height: height * 0.12,
                                 child: TextField(
+                                  maxLines: 2,
                                   controller: taskNameController,
                                   textAlignVertical: TextAlignVertical.center,
                                   style: const TextStyle(fontSize: 18),
+                                  keyboardType: TextInputType.multiline,
+                                  textInputAction: TextInputAction.none,
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
                                   decoration: const InputDecoration(
                                     hintText: 'Task Name',
                                     hintStyle: TextStyle(
@@ -81,44 +85,7 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                                   ),
                                   onChanged: (value) {
                                     setState(() {
-                                      isEmpty =
-                                          taskNameController.text.isEmpty ||
-                                              descNameController.text.isEmpty;
-                                    });
-                                  },
-                                ),
-                              ),
-                              SizedBox(
-                                height: height * 0.04,
-                                child: TextField(
-                                  controller: descNameController,
-                                  textAlignVertical: TextAlignVertical.center,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                  decoration: const InputDecoration(
-                                    hintText: 'Description',
-                                    hintStyle: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w300),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide.none),
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      isEmpty =
-                                          taskNameController.text.isEmpty ||
-                                              descNameController.text.isEmpty;
+                                      isEmpty = taskNameController.text.isEmpty;
                                     });
                                   },
                                 ),
@@ -167,15 +134,24 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                                       if (!isEmpty) {
                                         OnlineStorage().createTask(
                                             title: taskNameController.text,
-                                            desc: descNameController.text,
                                             taskGroup: 'Personal',
-                                            category: 'inbox',
-                                            time: DateTime.now().toString(),
-                                            kind: "Normal",
-                                            priority: 4);
+                                            kind: 'To Do',
+                                            category: context
+                                                .read<ToDoProvider>()
+                                                .getCategory(
+                                                    dropdownValueIcon!),
+                                            priority: int.parse(
+                                                dropdownValuePriority![9]),
+                                            date: context
+                                                .read<ToDoProvider>()
+                                                .getDate(),
+                                            icon: dropdownValueIcon!);
                                         Navigator.pop(context);
                                         taskNameController.clear();
-                                        descNameController.clear();
+
+                                        context
+                                            .read<ToDoProvider>()
+                                            .disposeVars();
                                       }
                                     },
                                     child: Container(

@@ -28,15 +28,15 @@ class HabitsGoalsListView extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 if (goalOrHabit == 'goal') {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EdirtGoalPage()));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const EdirtGoalPage()));
                 } else {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditHabbitPage()));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const EditHabbitPage()));
                 }
               },
               child: Padding(
