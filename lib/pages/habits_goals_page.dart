@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_app/components/habits_goals_list_view.dart';
+import 'package:to_do_list_app/components/goals_list_view.dart';
+import 'package:to_do_list_app/components/habits_list_view.dart';
 import 'package:to_do_list_app/dummy_data.dart';
 import 'package:to_do_list_app/popUpPages/add_goal_page.dart';
 import 'package:to_do_list_app/popUpPages/add_habbit_page.dart';
+import 'package:to_do_list_app/services/firebaseStroage/goal_moddel.dart';
+import 'package:to_do_list_app/services/firebaseStroage/habbit_model.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class HabitsGoalsPage extends StatefulWidget {
@@ -82,12 +86,26 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
                       ],
                     ),
                     (isGoalsShown)
-                        ? HabitsGoalsListView(
-                            height: height,
-                            widht: width,
-                            goalOrHabit: 'goals',
-                            lists: goals,
-                          )
+                        ? StreamBuilder(
+                            stream: OnlineStorage().getGoals(),
+                            builder: (context, snapshots) {
+                              if (snapshots.hasError) {
+                                return const Text(
+                                    'Coudnt Load Data check your internet');
+                              } else if (snapshots.hasData) {
+                                final goals = snapshots.data!;
+
+                                return ListView(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    children: goals.map(buildGoal).toList());
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            })
                         : const SizedBox.shrink(),
                     sameGap(height),
                     Row(
@@ -128,12 +146,26 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
                       ],
                     ),
                     (isHabitsshown)
-                        ? HabitsGoalsListView(
-                            height: height,
-                            widht: width,
-                            goalOrHabit: 'habits',
-                            lists: habits,
-                          )
+                        ? StreamBuilder(
+                            stream: OnlineStorage().getHabits(),
+                            builder: (context, snapshots) {
+                              if (snapshots.hasError) {
+                                return const Text(
+                                    'Coudnt Load Data check your internet');
+                              } else if (snapshots.hasData) {
+                                final habits = snapshots.data!;
+
+                                return ListView(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    children: habits.map(buildHabbit).toList());
+                              } else {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            })
                         : const SizedBox.shrink(),
                     sameGap(height),
                   ],
@@ -145,4 +177,11 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
       ),
     );
   }
+
+  Widget buildHabbit(Habbit habbit) => HabitsListView(
+        habbit: habbit,
+      );
+  Widget buildGoal(Goal habbit) => GoalsListView(
+        goal: habbit,
+      );
 }

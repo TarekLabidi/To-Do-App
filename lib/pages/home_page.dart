@@ -73,9 +73,6 @@ class _HomePageState extends State<HomePage> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           final groupTasks = snapshot.data!;
-                          OnlineStorage()
-                              .getName()
-                              .then((value) => print(value));
                           return ListView(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
@@ -84,7 +81,6 @@ class _HomePageState extends State<HomePage> {
                                 .toList(),
                           );
                         } else if (snapshot.hasError) {
-                          print("error");
                           return Center(
                             child: Text(
                               snapshot.toString(),
@@ -92,22 +88,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                           );
                         } else {
-                          print("error1");
                           return const Center(
                               child: CircularProgressIndicator());
                         }
                       },
                     )
-                    // ListView.builder(
-                    //     itemCount: taskGroups.length,
-                    //     shrinkWrap: true,
-                    //     physics: const NeverScrollableScrollPhysics(),
-                    //     itemBuilder: (context, index) {
-                    //       final taskGroup = taskGroups[index];
-                    //       return TaskGroupCard(
-                    //         taskGroup: taskGroup,
-                    //       );
-                    //     }),
                   ],
                 ),
               ),
@@ -119,7 +104,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildGroupTask(String taskGroup) {
-    print("object");
     return TaskGroupCard(taskGroup: taskGroup);
   }
 }

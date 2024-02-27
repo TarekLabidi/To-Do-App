@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_list_app/services/firebaseStroage/goal_moddel.dart';
+import 'package:to_do_list_app/services/firebaseStroage/habbit_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/task_model.dart';
 
 class OnlineStorage {
@@ -15,7 +17,6 @@ class OnlineStorage {
       required String date,
       required String kind,
       required int icon}) async {
-    print('created');
     final String currentUserId = _firebaseAuth.currentUser!.uid;
     //create a task
     Task newtask = Task(
@@ -27,9 +28,7 @@ class OnlineStorage {
         date: date,
         icon: icon,
         kind: kind);
-    print(date.substring(
-      6,
-    ));
+
     await _firestore
         .collection('users')
         .doc(currentUserId)
@@ -86,7 +85,6 @@ class OnlineStorage {
 
   Stream<List<String>> getGroupTasks() {
     final String currentUserId = _firebaseAuth.currentUser!.uid;
-    print('entred');
 
     return _firestore
         .collection('users')
@@ -144,5 +142,72 @@ class OnlineStorage {
         .get();
 
     return snapshot.data() ?? {};
+  }
+
+  Future createHabbit({
+    required String title,
+    required String desc,
+    required int icon,
+  }) async {
+    final String currentUserId = _firebaseAuth.currentUser!.uid;
+    //create habbit
+    Habbit newHabbit = Habbit(
+      title: title,
+      desc: desc,
+      icon: icon,
+    );
+    await _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Habits')
+        .doc(title)
+        .set(newHabbit.toMap());
+  }
+
+  Stream<List<Habbit>> getHabits() {
+    final String currentUserId = _firebaseAuth.currentUser!.uid;
+    return _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Habits')
+        .snapshots()
+        .map(
+          (snapshot) =>
+              snapshot.docs.map((doc) => Habbit.fromJson(doc.data())).toList(),
+        );
+  }
+
+  //create goal
+  Future createGoal({
+    required String title,
+    required String desc,
+    required String startDay,
+    required String endDay,
+    required int icon,
+  }) async {
+    final String currentUserId = _firebaseAuth.currentUser!.uid;
+    Goal newGoal = Goal(
+        title: title,
+        desc: desc,
+        icon: icon,
+        startDay: startDay,
+        endDay: endDay);
+    return _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Goals')
+        .doc(title)
+        .set(newGoal.toMap());
+  }
+
+  Stream<List<Goal>> getGoals() {
+    final currentUserId = _firebaseAuth.currentUser!.uid;
+    return _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Goals')
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Goal.fromJson(doc.data())).toList());
   }
 }

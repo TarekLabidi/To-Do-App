@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do_list_app/components/add_goal_container.dart';
+import 'package:to_do_list_app/components/choose_habit_icon.dart';
 import 'package:to_do_list_app/components/select_day_add_goal_page.dart';
+import 'package:to_do_list_app/services/data/goal_provider.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
@@ -16,6 +20,7 @@ class AddGoalPage extends StatefulWidget {
 class _AddGoalPageState extends State<AddGoalPage> {
   final goalNameController = TextEditingController();
   final goalDescController = TextEditingController();
+  int? dropdownValueIcon = 1;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -53,7 +58,9 @@ class _AddGoalPageState extends State<AddGoalPage> {
                       Text(
                         'Add Goal',
                         style: GoogleFonts.roboto(
-                            fontSize: 32, fontWeight: FontWeight.w400),
+                            fontSize: 32,
+                            fontWeight: FontWeight.w400,
+                            color: Palette.purpleColor),
                       ),
                     ],
                   ),
@@ -97,8 +104,13 @@ class _AddGoalPageState extends State<AddGoalPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(width: width * 0.04),
-                                // containerIcon(
-                                //     50, 50, FontAwesomeIcons.suitcase, 30),
+                                ChooseHabitIcon(
+                                    dropdownValueIcon: dropdownValueIcon,
+                                    chosed1: ((value) {
+                                      setState(() {
+                                        dropdownValueIcon = value;
+                                      });
+                                    })),
                                 const Spacer(),
                                 Container(
                                   decoration: BoxDecoration(
@@ -127,6 +139,13 @@ class _AddGoalPageState extends State<AddGoalPage> {
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
+                            OnlineStorage().createGoal(
+                                title: goalNameController.text,
+                                desc: goalDescController.text,
+                                startDay:
+                                    context.read<GoalsProvider>().startDay,
+                                endDay: context.read<GoalsProvider>().endDay,
+                                icon: dropdownValueIcon!);
                           },
                           child: Container(
                             width: double.infinity,

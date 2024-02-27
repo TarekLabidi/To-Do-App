@@ -20,21 +20,6 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
   int poistionFilter = 0;
   String date = DateFormat('dd MM yyyy').format(DateTime.now());
   List<String> filters = ['All', 'To Do', 'Habits', 'Goals Tasks'];
-  List<Map<String, dynamic>> getList() {
-    if (poistionFilter == 0) {
-      List<Map<String, dynamic>> combinedList = [];
-      combinedList.addAll(taskGroups);
-      combinedList.addAll(habits);
-      combinedList.addAll(goals);
-      return combinedList;
-    } else if (poistionFilter == 1) {
-      return taskGroups;
-    } else if (poistionFilter == 2) {
-      return habits;
-    } else {
-      return goals;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

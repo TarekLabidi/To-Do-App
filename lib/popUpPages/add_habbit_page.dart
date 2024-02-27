@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_list_app/components/add_goal_container.dart';
+import 'package:to_do_list_app/components/choose_habit_icon.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 
 import 'package:to_do_list_app/utils/palette.dart';
 import 'package:to_do_list_app/utils/utils.dart';
@@ -14,8 +16,9 @@ class AddHabbitPage extends StatefulWidget {
 }
 
 class _AddHabbitPageState extends State<AddHabbitPage> {
-  final goalNameController = TextEditingController();
-  final goalDescController = TextEditingController();
+  final habitNameController = TextEditingController();
+  final habitDescController = TextEditingController();
+  int? dropdownValueIcon = 1;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -66,16 +69,16 @@ class _AddHabbitPageState extends State<AddHabbitPage> {
                       children: [
                         AddGoalContainer(
                             height: height,
-                            title: 'Hait title',
+                            title: 'Habit Title',
                             hintText: 'Enter the title of your habit',
-                            controller: goalNameController,
+                            controller: habitNameController,
                             maxLines: 1),
                         sameGap(height),
                         AddGoalContainer(
                             height: height,
-                            title: 'Habit description',
+                            title: 'Habit Description',
                             hintText: 'Enter your description',
-                            controller: goalDescController,
+                            controller: habitDescController,
                             maxLines: 4),
                         sameGap(height),
                         Container(
@@ -89,8 +92,13 @@ class _AddHabbitPageState extends State<AddHabbitPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(width: width * 0.04),
-                                // containerIcon(
-                                //     50, 50, FontAwesomeIcons.suitcase, 30),
+                                ChooseHabitIcon(
+                                    dropdownValueIcon: dropdownValueIcon,
+                                    chosed1: ((value) {
+                                      setState(() {
+                                        dropdownValueIcon = value;
+                                      });
+                                    })),
                                 const Spacer(),
                                 Container(
                                   decoration: BoxDecoration(
@@ -119,6 +127,10 @@ class _AddHabbitPageState extends State<AddHabbitPage> {
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
+                            OnlineStorage().createHabbit(
+                                title: habitNameController.text,
+                                desc: habitDescController.text,
+                                icon: dropdownValueIcon!);
                           },
                           child: Container(
                             width: double.infinity,

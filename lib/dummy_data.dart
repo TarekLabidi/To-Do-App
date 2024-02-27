@@ -36,6 +36,6 @@
 //     'tasks': ['sleep early', 'brush my teath'],
 //   },
 // ];
-List<Map<String, dynamic>> habits = [];
+
 List<Map<String, dynamic>> goals = [];
 List<Map<String, dynamic>> taskGroups = [];

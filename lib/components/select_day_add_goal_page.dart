@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_list_app/components/select_end_day.dart';
+import 'package:to_do_list_app/components/select_start_day.dart';
+import 'package:to_do_list_app/services/data/goal_provider.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
 class SelectDayAddGoalPage extends StatelessWidget {
@@ -19,35 +23,52 @@ class SelectDayAddGoalPage extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(14.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const FaIcon(
-              FontAwesomeIcons.solidCalendarDays,
-              size: 30,
-              color: Palette.purpleColorscondary,
-            ),
-            SizedBox(width: width * 0.04),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: GoogleFonts.roboto(
-                      fontSize: 12,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Choose your start date',
-                  style: GoogleFonts.roboto(fontSize: 16, color: Colors.grey),
-                ),
-              ],
-            )
-          ],
+        child: GestureDetector(
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: ((context) {
+                  return (title == 'Start Day')
+                      ? SelectStartDayWidget()
+                      : SelectEndDayWidget();
+                }));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const FaIcon(
+                FontAwesomeIcons.solidCalendarDays,
+                size: 30,
+                color: Palette.purpleColorscondary,
+              ),
+              SizedBox(width: width * 0.04),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: GoogleFonts.roboto(
+                        fontSize: 12,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    (title == 'Start Day')
+                        ? (context.watch<GoalsProvider>().startDay == '')
+                            ? 'Choose your start date'
+                            : context.watch<GoalsProvider>().startDay
+                        : (context.watch<GoalsProvider>().endDay == '')
+                            ? 'Choose your start date'
+                            : context.watch<GoalsProvider>().endDay,
+                    style: GoogleFonts.roboto(fontSize: 16, color: Colors.grey),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
