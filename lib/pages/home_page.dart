@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do_list_app/components/goals_card_hp.dart';
 import 'package:to_do_list_app/components/habits_card.dart';
 import 'package:to_do_list_app/components/home_page_headder.dart';
 import 'package:to_do_list_app/components/task_group_card.dart';
 import 'package:to_do_list_app/dummy_data.dart';
-import 'package:to_do_list_app/services/firebaseStroage/task_model.dart';
+import 'package:to_do_list_app/services/data/goal_provider.dart';
+import 'package:to_do_list_app/services/firebaseStroage/goal_moddel.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
@@ -16,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int index = 0;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -49,18 +52,43 @@ class _HomePageState extends State<HomePage> {
                     sameGap(height),
                     SizedBox(
                       height: height / 5.5,
-                      child: ListView.builder(
-                        itemCount: goals.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final goal = goals[index];
-                          return GoalssCardHp(
-                            height: height,
-                            width: width,
-                            goal: goal,
-                          );
+                      child: StreamBuilder(
+                        stream: OnlineStorage().getGoals(),
+                        builder: (context, snapshots) {
+                          if (snapshots.hasData) {
+                            final goals = snapshots.data!;
+                            print("goal$goals");
+                            return ListView(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              children:
+                                  goals.map((goal) => buildGoal(goal)).toList(),
+                            );
+                          } else if (snapshots.hasError) {
+                            return Center(
+                              child: Text(
+                                snapshots.toString(),
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            );
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
                         },
                       ),
+                      // child: ListView.builder(
+                      //   itemCount: goals.length,
+                      //   scrollDirection: Axis.horizontal,
+                      //   itemBuilder: (context, index) {
+                      //     final goal = goals[index];
+                      //     return GoalssCardHp(
+                      //       height: height,
+                      //       width: width,
+                      //       goal: goal,
+                      //     );
+                      //   },
+                      // ),
                     ),
                     sameGap(height),
                     Text(
@@ -105,5 +133,14 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildGroupTask(String taskGroup) {
     return TaskGroupCard(taskGroup: taskGroup);
+  }
+
+  Widget buildGoal(Goal goal) {
+    index++;
+    context.read<GoalsProvider>().calDays;
+    return GoalssCardHp(
+      goal: goal,
+      index: index % 5,
+    );
   }
 }

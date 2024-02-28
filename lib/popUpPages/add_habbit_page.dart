@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_list_app/components/add_goal_container.dart';
 import 'package:to_do_list_app/components/choose_habit_icon.dart';
@@ -126,11 +125,13 @@ class _AddHabbitPageState extends State<AddHabbitPage> {
                         SizedBox(height: height * 0.05),
                         TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
-                            OnlineStorage().createHabbit(
-                                title: habitNameController.text,
-                                desc: habitDescController.text,
-                                icon: dropdownValueIcon!);
+                            if (habitNameController.text.isNotEmpty) {
+                              Navigator.pop(context);
+                              OnlineStorage().createHabbit(
+                                  title: habitNameController.text,
+                                  desc: habitDescController.text,
+                                  icon: dropdownValueIcon!);
+                            }
                           },
                           child: Container(
                             width: double.infinity,

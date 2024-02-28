@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:to_do_list_app/components/days_card.dart';
 import 'package:to_do_list_app/components/filters_card.dart';
 import 'package:to_do_list_app/components/tasks_card.dart';
-import 'package:to_do_list_app/dummy_data.dart';
 import 'package:to_do_list_app/services/firebaseStroage/task_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/utils.dart';
@@ -64,7 +63,7 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
                   SizedBox(
                     height: height / 8,
                     child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: 14,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           bool isPressed = (index == poistionDay);

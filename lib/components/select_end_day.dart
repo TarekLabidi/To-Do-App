@@ -3,10 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:to_do_list_app/components/select_end_day.dart';
 import 'package:to_do_list_app/services/data/goal_provider.dart';
-import 'package:to_do_list_app/services/data/provider.dart';
-import 'package:to_do_list_app/utils/palette.dart';
 
 class SelectEndDayWidget extends StatefulWidget {
   const SelectEndDayWidget({

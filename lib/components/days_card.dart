@@ -36,14 +36,16 @@ class DaysCard extends StatelessWidget {
                 ? Palette.purpleColor
                 : const Color.fromARGB(255, 241, 239, 239),
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Color.fromARGB(255, 209, 206, 206))),
+            border:
+                Border.all(color: const Color.fromARGB(255, 209, 206, 206))),
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                DateFormat("MMM").format(DateTime.now()),
+                DateFormat("MMM")
+                    .format(DateTime.now().subtract(Duration(days: 2 - index))),
                 style: GoogleFonts.lato(
                     color: (isPressed)
                         ? const Color.fromARGB(255, 241, 239, 239)

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/goal_moddel.dart';
-import 'package:to_do_list_app/services/firebaseStroage/habbit_model.dart';
+import 'package:to_do_list_app/utils/palette.dart';
+import 'package:to_do_list_app/utils/utils.dart';
 
 class GoalsListView extends StatelessWidget {
   final Goal goal;
@@ -13,34 +16,39 @@ class GoalsListView extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
-          child: Text.rich(
-            TextSpan(
-              text: '  #  ',
-              style: const TextStyle(
-                fontSize: 29.0,
-                fontWeight: FontWeight.w700,
-                color: Color.fromARGB(255, 99, 44, 249),
+          child: Row(
+            children: [
+              containerIcon(
+                40,
+                40,
+                context.read<ToDoProvider>().getIcon(goal.icon),
+                30,
+                Palette.purpleColor,
+                Colors.transparent,
               ),
-              children: [
-                TextSpan(
-                  text: '${goal.title} \n',
-                  style: const TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
+              const SizedBox(width: 12.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    goal.title,
+                    style: const TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                // FutureBuilder(future: future, builder: builder)
-                TextSpan(
-                  text: '               11 Tasks',
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
+                  const Text(
+                    '11 Tasks',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
         ),
       ],

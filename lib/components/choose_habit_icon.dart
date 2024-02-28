@@ -5,9 +5,10 @@ import 'package:to_do_list_app/utils/palette.dart';
 
 class ChooseHabitIcon extends StatefulWidget {
   final int? dropdownValueIcon;
-  ValueChanged chosed1;
-  ChooseHabitIcon(
-      {super.key, required this.dropdownValueIcon, required this.chosed1});
+  final ValueChanged chosed1;
+  const ChooseHabitIcon(
+      {Key? key, required this.dropdownValueIcon, required this.chosed1})
+      : super(key: key);
 
   @override
   State<ChooseHabitIcon> createState() => _ChooseHabitIconState();

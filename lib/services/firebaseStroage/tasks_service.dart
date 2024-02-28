@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:to_do_list_app/services/firebaseStroage/goal_moddel.dart';
 import 'package:to_do_list_app/services/firebaseStroage/habbit_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/task_model.dart';
@@ -190,8 +189,9 @@ class OnlineStorage {
         title: title,
         desc: desc,
         icon: icon,
-        startDay: startDay,
-        endDay: endDay);
+        //nikomha fhmtch aalh lzmni nklbhom snn ijiw ghltin
+        startDay: endDay,
+        endDay: startDay);
     return _firestore
         .collection('users')
         .doc(currentUserId)

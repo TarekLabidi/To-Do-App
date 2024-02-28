@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:table_calendar/table_calendar.dart';
+
 import 'package:to_do_list_app/components/select_time_widget.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 

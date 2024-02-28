@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list_app/components/goals_list_view.dart';
 import 'package:to_do_list_app/components/habits_list_view.dart';
-import 'package:to_do_list_app/dummy_data.dart';
 import 'package:to_do_list_app/popUpPages/add_goal_page.dart';
 import 'package:to_do_list_app/popUpPages/add_habbit_page.dart';
 import 'package:to_do_list_app/services/firebaseStroage/goal_moddel.dart';
@@ -135,7 +134,7 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
                             });
                           },
                           icon: RotatedBox(
-                            quarterTurns: (isGoalsShown) ? -1 : 1,
+                            quarterTurns: (isHabitsshown) ? -1 : 1,
                             child: const Icon(
                               Icons.arrow_forward_ios,
                               size: 20.0,

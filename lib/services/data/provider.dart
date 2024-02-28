@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
 class ToDoProvider extends ChangeNotifier {
@@ -17,14 +15,14 @@ class ToDoProvider extends ChangeNotifier {
     if (-1 < tasksDone && tasksDone < 11) {
       return FontAwesomeIcons.userNinja;
     }
-    if (11 < tasksDone && tasksDone < 51) {
+    if (10 < tasksDone && tasksDone < 51) {
       return FontAwesomeIcons.userAstronaut;
     }
-    if (51 < tasksDone && tasksDone < 101) {
+    if (50 < tasksDone && tasksDone < 101) {
       // ignore: deprecated_member_use
       return FontAwesomeIcons.rocket;
     }
-    if (101 < tasksDone && tasksDone < 301) {
+    if (100 < tasksDone && tasksDone < 301) {
       return FontAwesomeIcons.gem;
     }
     return FontAwesomeIcons.crown;
@@ -34,31 +32,51 @@ class ToDoProvider extends ChangeNotifier {
     if (-1 < tasksDone && tasksDone < 11) {
       return const Color.fromARGB(255, 210, 255, 211);
     }
-    if (11 < tasksDone && tasksDone < 51) {
+    if (10 < tasksDone && tasksDone < 51) {
       return const Color.fromARGB(255, 255, 242, 204);
     }
-    if (51 < tasksDone && tasksDone < 101) {
+    if (50 < tasksDone && tasksDone < 101) {
       // ignore: deprecated_member_use
       return const Color.fromARGB(255, 255, 189, 184);
     }
-    if (101 < tasksDone && tasksDone < 301) {
+    if (100 < tasksDone && tasksDone < 301) {
       return Palette.purpleColorscondary;
     }
     return SecondaryColors.pink;
+  }
+
+  double geTaskGroupPercentage(int tasksDone) {
+    if (tasksDone == 0) {
+      return 0;
+    }
+    if (0 < tasksDone && tasksDone < 11) {
+      return tasksDone / 11;
+    }
+    if (10 < tasksDone && tasksDone < 51) {
+      // ignore: deprecated_member_use
+      return tasksDone / 51;
+    }
+    if (50 < tasksDone && tasksDone < 101) {
+      return tasksDone / 101;
+    }
+    if (100 < tasksDone && tasksDone < 301) {
+      return tasksDone / 301;
+    }
+    return 1;
   }
 
   Color getGroupTaskIconColor(int tasksDone) {
     if (-1 < tasksDone && tasksDone < 11) {
       return Color.fromARGB(255, 117, 240, 119);
     }
-    if (11 < tasksDone && tasksDone < 51) {
-      return Color.fromARGB(255, 208, 175, 75);
+    if (10 < tasksDone && tasksDone < 51) {
+      return Color.fromARGB(255, 163, 124, 8);
     }
-    if (51 < tasksDone && tasksDone < 101) {
+    if (50 < tasksDone && tasksDone < 101) {
       // ignore: deprecated_member_use
       return Color.fromARGB(255, 200, 59, 49);
     }
-    if (101 < tasksDone && tasksDone < 301) {
+    if (100 < tasksDone && tasksDone < 301) {
       return Palette.purpleColor;
     }
     return PrimaryColors.pink;

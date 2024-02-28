@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_list_app/components/add_goal_container.dart';
@@ -46,6 +45,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
                       IconButton(
                         onPressed: () {
                           Navigator.pop(context);
+                          context.read<GoalsProvider>().resetDates();
                         },
                         icon: const Icon(
                           Icons.arrow_back,
@@ -138,14 +138,18 @@ class _AddGoalPageState extends State<AddGoalPage> {
                         SizedBox(height: height * 0.02),
                         TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
-                            OnlineStorage().createGoal(
-                                title: goalNameController.text,
-                                desc: goalDescController.text,
-                                startDay:
-                                    context.read<GoalsProvider>().startDay,
-                                endDay: context.read<GoalsProvider>().endDay,
-                                icon: dropdownValueIcon!);
+                            if (goalNameController.text.isNotEmpty) {
+                              Navigator.pop(context);
+                              OnlineStorage().createGoal(
+                                  title: goalNameController.text,
+                                  desc: goalDescController.text,
+                                  startDay:
+                                      context.read<GoalsProvider>().endDay,
+                                  endDay:
+                                      context.read<GoalsProvider>().startDay,
+                                  icon: dropdownValueIcon!);
+                              context.read<GoalsProvider>().resetDates();
+                            }
                           },
                           child: Container(
                             width: double.infinity,
