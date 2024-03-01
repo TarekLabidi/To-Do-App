@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_list_app/components/menu_widget.dart';
-import 'package:to_do_list_app/services/data/provider.dart';
+import 'package:to_do_list_app/components/add_habbit_menu_widget.dart';
+import 'package:to_do_list_app/services/data/habit_provider.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/habbit_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
-class MiddleFloationgButton extends StatefulWidget {
-  const MiddleFloationgButton({
-    super.key,
-  });
+class HabitsFloatingButton extends StatefulWidget {
+  const HabitsFloatingButton(
+      {super.key,
+      required this.height,
+      required this.width,
+      required this.habit});
+
+  final double height;
+  final double width;
+  final Habbit habit;
 
   @override
-  State<MiddleFloationgButton> createState() => _MiddleFloationgButtonState();
+  State<HabitsFloatingButton> createState() => _HabitsFloatingButtonState();
 }
 
-class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
-  String? dropdownValuePriority = 'Priority 4';
-  int? dropdownValueIcon = 1;
+class _HabitsFloatingButtonState extends State<HabitsFloatingButton> {
   final taskNameController = TextEditingController();
-
+  String? dropdownValuePriority = 'Priority 4';
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     return FloatingActionButton(
-      elevation: 30,
-      backgroundColor: Palette.purpleColor,
-      shape: const CircleBorder(),
+      backgroundColor: const Color.fromARGB(255, 205, 191, 255),
       onPressed: () {
         bool isEmpty = true;
         showDialog(
@@ -38,8 +39,7 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                 return WillPopScope(
                   onWillPop: () async {
                     taskNameController.clear();
-
-                    context.read<ToDoProvider>().disposeVars();
+                    context.read<HabitsProvider>().resetDays();
                     return true;
                   },
                   child: Column(
@@ -54,10 +54,10 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                           child: Column(
                             children: [
                               SizedBox(
-                                height: height * 0.01,
+                                height: widget.height * 0.01,
                               ),
                               SizedBox(
-                                height: height * 0.12,
+                                height: widget.height * 0.12,
                                 child: TextField(
                                   maxLines: 2,
                                   controller: taskNameController,
@@ -68,7 +68,7 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                                   textCapitalization:
                                       TextCapitalization.sentences,
                                   decoration: const InputDecoration(
-                                    hintText: 'Task Name',
+                                    hintText: 'Habit Name',
                                     hintStyle: TextStyle(
                                         color: Colors.grey,
                                         fontWeight: FontWeight.w600),
@@ -90,51 +90,45 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                                   },
                                 ),
                               ),
-                              MenuWidget(
-                                width: width,
-                                dropdownValueIcon: dropdownValueIcon,
+                              AddHabbitMenuWidget(
+                                width: widget.width,
                                 dropdownValueString: dropdownValuePriority,
                                 chosed: (value) {
                                   setState(() {
                                     dropdownValuePriority = value;
                                   });
                                 },
-                                chosed1: (value) {
-                                  setState(() {
-                                    dropdownValueIcon = value;
-                                  });
-                                },
                               ),
                               const Divider(
                                 thickness: 1,
                               ),
-                              SizedBox(height: height * 0.01),
+                              SizedBox(height: widget.height * 0.01),
                               Row(
                                 children: [
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
                                   const Spacer(),
                                   GestureDetector(
                                     onTap: () {
                                       if (!isEmpty) {
-                                        OnlineStorage().createTask(
+                                        OnlineStorage().createHabitTask(
                                             title: taskNameController.text,
-                                            taskGroup: 'Personal',
-                                            kind: 'To Do',
-                                            category: context
-                                                .read<ToDoProvider>()
-                                                .getCategory(
-                                                    dropdownValueIcon!),
-                                            priority: int.parse(
-                                                dropdownValuePriority![9]),
-                                            date: context
-                                                .read<ToDoProvider>()
-                                                .getDate(),
-                                            icon: dropdownValueIcon!);
+                                            habit: widget.habit.title,
+                                            priority: dropdownValuePriority!,
+                                            icon: widget.habit.icon,
+                                            time: context
+                                                .read<HabitsProvider>()
+                                                .time,
+                                            days: context
+                                                .read<HabitsProvider>()
+                                                .days);
                                         Navigator.pop(context);
                                         taskNameController.clear();
 
                                         context
-                                            .read<ToDoProvider>()
-                                            .disposeVars();
+                                            .read<HabitsProvider>()
+                                            .resetDays();
                                       }
                                     },
                                     child: Container(
@@ -174,11 +168,7 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
           },
         );
       },
-      child: const Icon(
-        Icons.add,
-        size: 30,
-        color: Colors.white,
-      ),
+      child: const Icon(Icons.add, size: 35, color: Palette.purpleColor),
     );
   }
 }

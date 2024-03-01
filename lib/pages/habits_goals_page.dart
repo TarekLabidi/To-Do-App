@@ -3,8 +3,8 @@ import 'package:to_do_list_app/components/goals_list_view.dart';
 import 'package:to_do_list_app/components/habits_list_view.dart';
 import 'package:to_do_list_app/popUpPages/add_goal_page.dart';
 import 'package:to_do_list_app/popUpPages/add_habbit_page.dart';
-import 'package:to_do_list_app/services/firebaseStroage/goal_moddel.dart';
-import 'package:to_do_list_app/services/firebaseStroage/habbit_model.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/goal_moddel.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/habbit_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
@@ -160,7 +160,7 @@ class _HabitsGoalsPageState extends State<HabitsGoalsPage> {
                                         const NeverScrollableScrollPhysics(),
                                     children: habits.map(buildHabbit).toList());
                               } else {
-                                return Center(
+                                return const Center(
                                   child: CircularProgressIndicator(),
                                 );
                               }

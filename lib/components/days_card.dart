@@ -24,7 +24,8 @@ class DaysCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        clicked(5);
+        clicked(DateFormat("EEE")
+            .format(DateTime.now().subtract(Duration(days: 2 - index))));
         changeDate(DateFormat("dd MM yyyy")
             .format(DateTime.now().subtract(Duration(days: 2 - index))));
       },

@@ -4,7 +4,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_list_app/services/data/goal_provider.dart';
 import 'package:to_do_list_app/services/data/provider.dart';
-import 'package:to_do_list_app/services/firebaseStroage/goal_moddel.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/goal_moddel.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class GoalssCardHp extends StatelessWidget {

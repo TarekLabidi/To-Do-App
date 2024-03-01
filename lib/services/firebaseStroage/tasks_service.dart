@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:to_do_list_app/services/firebaseStroage/goal_moddel.dart';
-import 'package:to_do_list_app/services/firebaseStroage/habbit_model.dart';
-import 'package:to_do_list_app/services/firebaseStroage/task_model.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/goal_moddel.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/goal_task_model.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/habbit_model.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/habbit_task_model.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/task_model.dart';
 
 class OnlineStorage {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -209,5 +211,143 @@ class OnlineStorage {
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => Goal.fromJson(doc.data())).toList());
+  }
+
+  Future createHabitTask(
+      {required String title,
+      required String habit,
+      required String priority,
+      required int icon,
+      required String time,
+      required List<String> days}) async {
+    final currentUserId = _firebaseAuth.currentUser!.uid;
+    HabbitTask newHabbitTask = HabbitTask(
+        title: title,
+        habit: habit,
+        priority: priority,
+        days: days,
+        icon: icon,
+        time: time,
+        isCompleted: false);
+    await _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Habits')
+        .doc(habit)
+        .collection('tasks')
+        .doc(title)
+        .set(newHabbitTask.toMap());
+    for (int i = 0; i < days.length; i++) {
+      final day = days[i];
+      print(day);
+      await _firestore
+          .collection('users')
+          .doc(currentUserId)
+          .collection('Habits')
+          .doc('days')
+          .collection(day)
+          .doc(title)
+          .set(newHabbitTask.toMap());
+    }
+  }
+
+  Stream<List<HabbitTask>> getHabitTasks({required String habit}) {
+    final currentUserId = _firebaseAuth.currentUser!.uid;
+
+    return _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Habits')
+        .doc(habit)
+        .collection('tasks')
+        .snapshots()
+        .map((snapshots) => snapshots.docs
+            .map((doc) => HabbitTask.fromJson(doc.data()))
+            .toList());
+  }
+
+  Stream<List<HabbitTask>> getHabitTasksTP({required String day}) {
+    final currentUserId = _firebaseAuth.currentUser!.uid;
+
+    return _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Habits')
+        .doc('days')
+        .collection(day)
+        .snapshots()
+        .map((snapshots) => snapshots.docs
+            .map((doc) => HabbitTask.fromJson(doc.data()))
+            .toList());
+  }
+
+  Future createGoalTask({
+    required String title,
+    required String category,
+    required int priority,
+    required String date,
+    required int icon,
+    required String goal,
+  }) async {
+    final currentUserId = _firebaseAuth.currentUser!.uid;
+
+    GoalTask newGoalTask = GoalTask(
+      title: title,
+      category: category,
+      isCompleted: false,
+      priority: priority,
+      date: date,
+      icon: icon,
+      goal: goal,
+    );
+    await _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Goals')
+        .doc(goal)
+        .collection('tasks')
+        .doc(title)
+        .set(newGoalTask.toMap());
+    print('dateeee${date.substring(6)}');
+    await _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Goals')
+        .doc('days')
+        .collection(date.substring(6))
+        .doc(title)
+        .set(newGoalTask.toMap());
+  }
+
+  Stream<List<GoalTask>> getGoalTasks({required String goal}) {
+    final currenUserId = _firebaseAuth.currentUser!.uid;
+    return _firestore
+        .collection('users')
+        .doc(currenUserId)
+        .collection('Goals')
+        .doc(goal)
+        .collection('tasks')
+        .snapshots()
+        .map(
+          (snapshots) => snapshots.docs
+              .map((doc) => GoalTask.fromJson(doc.data()))
+              .toList(),
+        );
+  }
+
+  Stream<List<GoalTask>> getGoalTasksTP({required String date}) {
+    final currenUserId = _firebaseAuth.currentUser!.uid;
+    return _firestore
+        .collection('users')
+        .doc(currenUserId)
+        .collection('Goals')
+        .doc('days')
+        .collection(date)
+        .snapshots()
+        .map(
+          (snapshots) => snapshots.docs
+              .map((doc) => GoalTask.fromJson(doc.data()))
+              .toList(),
+        );
   }
 }

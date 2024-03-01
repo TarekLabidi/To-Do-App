@@ -4,9 +4,8 @@ import 'package:to_do_list_app/components/goals_card_hp.dart';
 import 'package:to_do_list_app/components/habits_card.dart';
 import 'package:to_do_list_app/components/home_page_headder.dart';
 import 'package:to_do_list_app/components/task_group_card.dart';
-import 'package:to_do_list_app/dummy_data.dart';
 import 'package:to_do_list_app/services/data/goal_provider.dart';
-import 'package:to_do_list_app/services/firebaseStroage/goal_moddel.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/goal_moddel.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
@@ -57,7 +56,6 @@ class _HomePageState extends State<HomePage> {
                         builder: (context, snapshots) {
                           if (snapshots.hasData) {
                             final goals = snapshots.data!;
-                            print("goal$goals");
                             return ListView(
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
@@ -77,18 +75,6 @@ class _HomePageState extends State<HomePage> {
                           }
                         },
                       ),
-                      // child: ListView.builder(
-                      //   itemCount: goals.length,
-                      //   scrollDirection: Axis.horizontal,
-                      //   itemBuilder: (context, index) {
-                      //     final goal = goals[index];
-                      //     return GoalssCardHp(
-                      //       height: height,
-                      //       width: width,
-                      //       goal: goal,
-                      //     );
-                      //   },
-                      // ),
                     ),
                     sameGap(height),
                     Text(
@@ -120,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                               child: CircularProgressIndicator());
                         }
                       },
-                    )
+                    ),
                   ],
                 ),
               ),

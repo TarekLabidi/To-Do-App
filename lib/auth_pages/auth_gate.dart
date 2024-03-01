@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:to_do_list_app/auth_pages/login_page.dart';
 import 'package:to_do_list_app/auth_pages/name_gate.dart';
 import 'package:to_do_list_app/auth_pages/register_page.dart';
-import 'package:to_do_list_app/pages/page_controller.dart';
 
 class AuthGate extends StatelessWidget {
   final bool isRegister;

@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do_list_app/components/goal_menu_widget.dart';
 import 'package:to_do_list_app/components/menu_widget.dart';
+import 'package:to_do_list_app/services/data/goal_provider.dart';
 import 'package:to_do_list_app/services/data/provider.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/goal_moddel.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
-class MiddleFloationgButton extends StatefulWidget {
-  const MiddleFloationgButton({
-    super.key,
-  });
+class GoalsFloationgButton extends StatefulWidget {
+  final Goal goal;
+  const GoalsFloationgButton({super.key, required this.goal});
 
   @override
-  State<MiddleFloationgButton> createState() => _MiddleFloationgButtonState();
+  State<GoalsFloationgButton> createState() => _GoalsFloationgButtonState();
 }
 
-class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
+class _GoalsFloationgButtonState extends State<GoalsFloationgButton> {
   String? dropdownValuePriority = 'Priority 4';
-  int? dropdownValueIcon = 1;
+
   final taskNameController = TextEditingController();
 
   @override
@@ -39,7 +41,7 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                   onWillPop: () async {
                     taskNameController.clear();
 
-                    context.read<ToDoProvider>().disposeVars();
+                    context.read<GoalsProvider>().disposeVars();
                     return true;
                   },
                   child: Column(
@@ -90,18 +92,12 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                                   },
                                 ),
                               ),
-                              MenuWidget(
+                              GoalMenuWidget(
                                 width: width,
-                                dropdownValueIcon: dropdownValueIcon,
                                 dropdownValueString: dropdownValuePriority,
                                 chosed: (value) {
                                   setState(() {
                                     dropdownValuePriority = value;
-                                  });
-                                },
-                                chosed1: (value) {
-                                  setState(() {
-                                    dropdownValueIcon = value;
                                   });
                                 },
                               ),
@@ -115,25 +111,23 @@ class _MiddleFloationgButtonState extends State<MiddleFloationgButton> {
                                   GestureDetector(
                                     onTap: () {
                                       if (!isEmpty) {
-                                        OnlineStorage().createTask(
+                                        OnlineStorage().createGoalTask(
                                             title: taskNameController.text,
-                                            taskGroup: 'Personal',
-                                            kind: 'To Do',
+                                            goal: widget.goal.title,
                                             category: context
                                                 .read<ToDoProvider>()
-                                                .getCategory(
-                                                    dropdownValueIcon!),
+                                                .getCategory(widget.goal.icon),
                                             priority: int.parse(
                                                 dropdownValuePriority![9]),
                                             date: context
-                                                .read<ToDoProvider>()
+                                                .read<GoalsProvider>()
                                                 .getDate(),
-                                            icon: dropdownValueIcon!);
+                                            icon: widget.goal.icon);
                                         Navigator.pop(context);
                                         taskNameController.clear();
 
                                         context
-                                            .read<ToDoProvider>()
+                                            .read<GoalsProvider>()
                                             .disposeVars();
                                       }
                                     },

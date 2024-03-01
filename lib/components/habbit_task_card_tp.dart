@@ -3,27 +3,26 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_list_app/services/data/provider.dart';
-import 'package:to_do_list_app/services/firebaseStroage/models/task_model.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/habbit_task_model.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
-class TasksCard extends StatefulWidget {
-  final Task task;
-  const TasksCard({super.key, required this.task});
+class HabbitTasksTPCard extends StatefulWidget {
+  final HabbitTask habbitTask;
+  const HabbitTasksTPCard({super.key, required this.habbitTask});
 
   @override
-  State<TasksCard> createState() => _TasksCardState();
+  State<HabbitTasksTPCard> createState() => _HabbitTasksTPCardState();
 }
 
-class _TasksCardState extends State<TasksCard> {
+class _HabbitTasksTPCardState extends State<HabbitTasksTPCard> {
   bool isDone = false;
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Container(
       width: double.infinity,
-      height: height / 7.2,
+      height: height / 5.5,
       margin: const EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 20),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 255, 255, 255),
@@ -41,7 +40,9 @@ class _TasksCardState extends State<TasksCard> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  widget.task.category,
+                  context
+                      .read<ToDoProvider>()
+                      .getCategory(widget.habbitTask.icon),
                   style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -51,16 +52,15 @@ class _TasksCardState extends State<TasksCard> {
                 const Spacer(),
                 Container(
                   decoration: BoxDecoration(
-                      color: context
-                          .read<ToDoProvider>()
-                          .getPrioritySecondary(widget.task.priority),
+                      color: context.read<ToDoProvider>().getPrioritySecondary(
+                          int.parse(widget.habbitTask.priority[9])),
                       borderRadius: BorderRadius.circular(5)),
                   child: Icon(
                     Icons.flag,
                     size: 25,
                     color: context
                         .read<ToDoProvider>()
-                        .getPriority(widget.task.priority),
+                        .getPriority(int.parse(widget.habbitTask.priority[9])),
                   ),
                 ),
                 const SizedBox(
@@ -69,26 +69,27 @@ class _TasksCardState extends State<TasksCard> {
                 containerIcon(
                     30,
                     30,
-                    context.read<ToDoProvider>().getIcon(widget.task.icon),
+                    context
+                        .read<ToDoProvider>()
+                        .getIcon(widget.habbitTask.icon),
                     20,
                     context
                         .read<ToDoProvider>()
-                        .getPriority(widget.task.priority),
-                    context
-                        .read<ToDoProvider>()
-                        .getPrioritySecondary(widget.task.priority)),
+                        .getPriority(int.parse(widget.habbitTask.priority[9])),
+                    context.read<ToDoProvider>().getPrioritySecondary(
+                        int.parse(widget.habbitTask.priority[9]))),
                 const SizedBox(
                   width: 10,
                 ),
               ],
             ),
             Text(
-              widget.task.title,
+              widget.habbitTask.title,
               style:
                   GoogleFonts.lato(fontSize: 17, fontWeight: FontWeight.w700),
             ),
             const SizedBox(
-              height: 5,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -102,7 +103,7 @@ class _TasksCardState extends State<TasksCard> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      widget.task.date.substring(0, 5),
+                      widget.habbitTask.time,
                       style: GoogleFonts.lato(
                         color: Palette.purpleColorscondary,
                       ),
@@ -110,7 +111,6 @@ class _TasksCardState extends State<TasksCard> {
                   ],
                 ),
                 const Spacer(),
-                const SizedBox(width: 10),
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -139,9 +139,19 @@ class _TasksCardState extends State<TasksCard> {
                 const SizedBox(
                   width: 10,
                 ),
+                const SizedBox(width: 10),
               ],
             ),
-            const SizedBox(height: 5)
+            const SizedBox(height: 5),
+            Text(
+              'Habit : ${widget.habbitTask.habit}',
+              maxLines: 1,
+              style: GoogleFonts.roboto(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: const Color.fromARGB(255, 120, 208, 255)),
+            ),
+            const SizedBox(height: 5),
           ],
         ),
       ),

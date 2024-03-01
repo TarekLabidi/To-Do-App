@@ -5,7 +5,16 @@ import 'package:to_do_list_app/utils/palette.dart';
 class GoalsProvider extends ChangeNotifier {
   String startDay;
   String endDay;
-  GoalsProvider({this.endDay = '', this.startDay = ""});
+  String day;
+  String time;
+  String date;
+  GoalsProvider({
+    this.endDay = '',
+    this.startDay = "",
+    this.day = '',
+    this.time = '',
+    this.date = '',
+  });
   void getStartDay(String newstartday) {
     startDay = newstartday;
   }
@@ -19,15 +28,42 @@ class GoalsProvider extends ChangeNotifier {
     endDay = '';
   }
 
+  void getDay(String setedDate) {
+    day = setedDate;
+    notifyListeners();
+  }
+
+  void getTime(String setedTime) {
+    time = setedTime;
+    notifyListeners();
+  }
+
+  void disposeVars() {
+    date = '';
+    day = '';
+    time = '';
+  }
+
+  String getDate() {
+    date = '$time $day';
+    if (date == '' || time == "") {
+      date = DateFormat('dd MM yyyy').format(DateTime.now());
+
+      return '??:?? $date';
+    } else {
+      return date;
+    }
+  }
+
   Color getGoalCardColor(int value) {
     if (value == 1) {
-      return Color.fromRGBO(213, 234, 255, 1);
+      return const Color.fromRGBO(213, 234, 255, 1);
     } else if (value == 2) {
       return const Color.fromARGB(255, 209, 197, 255);
     } else if (value == 3) {
       return SecondaryColors.orange;
     } else if (value == 4) {
-      return Color.fromARGB(255, 200, 255, 248);
+      return const Color.fromARGB(255, 200, 255, 248);
     } else {
       return SecondaryColors.pink;
     }
@@ -78,8 +114,6 @@ class GoalsProvider extends ChangeNotifier {
     int differenceInDays = date2.difference(date1).inDays;
     int diff = nowdate.difference(date1).inDays;
 
-    print('The difference in days between the two dates is: $differenceInDays');
-    print('diff: $diff');
     return diff / differenceInDays;
   }
 
@@ -102,7 +136,7 @@ class GoalsProvider extends ChangeNotifier {
     if (date2.isBefore(nowdate)) {
       return false;
     }
-    if (nowdate.isBefore(date1) || nowdate == date1) {
+    if (nowdate.isBefore(date1)) {
       return false;
     }
     return true;

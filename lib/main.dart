@@ -5,6 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_list_app/auth_pages/first_time_gate.dart';
 import 'package:to_do_list_app/firebase_options.dart';
+import 'package:to_do_list_app/popUpPages/habit_tasks_page.dart';
 import 'package:to_do_list_app/services/auth/auth_methods.dart';
 import 'package:to_do_list_app/services/data/goal_provider.dart';
 import 'package:to_do_list_app/services/data/habit_provider.dart';
