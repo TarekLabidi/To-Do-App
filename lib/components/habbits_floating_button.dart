@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:to_do_list_app/components/add_habbit_menu_widget.dart';
 import 'package:to_do_list_app/services/data/habit_provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/habbit_model.dart';
-import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
 class HabitsFloatingButton extends StatefulWidget {

@@ -5,7 +5,7 @@ import 'package:to_do_list_app/popUpPages/add_goal_page.dart';
 import 'package:to_do_list_app/popUpPages/add_habbit_page.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/goal_moddel.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/habbit_model.dart';
-import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class HabitsGoalsPage extends StatefulWidget {

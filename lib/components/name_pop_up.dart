@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list_app/components/text_field.dart';
 import 'package:to_do_list_app/pages/page_controller.dart';
-import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
 class NamePopUp extends StatefulWidget {

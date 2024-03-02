@@ -37,19 +37,10 @@ class OnlineStorage {
         .doc(date.substring(
           6,
         ))
-        .collection(kind)
+        .collection('To Do')
         .doc(title)
         .set(newtask.toMap());
-    await _firestore
-        .collection('users')
-        .doc(currentUserId)
-        .collection('days')
-        .doc(date.substring(
-          6,
-        ))
-        .collection('All')
-        .doc(title)
-        .set(newtask.toMap());
+
     await _firestore
         .collection('users')
         .doc(currentUserId)
@@ -239,7 +230,7 @@ class OnlineStorage {
         .set(newHabbitTask.toMap());
     for (int i = 0; i < days.length; i++) {
       final day = days[i];
-      print(day);
+
       await _firestore
           .collection('users')
           .doc(currentUserId)
@@ -308,7 +299,6 @@ class OnlineStorage {
         .collection('tasks')
         .doc(title)
         .set(newGoalTask.toMap());
-    print('dateeee${date.substring(6)}');
     await _firestore
         .collection('users')
         .doc(currentUserId)

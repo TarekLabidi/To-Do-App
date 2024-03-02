@@ -102,7 +102,7 @@ class _GoalTasksCardTPState extends State<GoalTasksCardTP> {
               style: GoogleFonts.roboto(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Color.fromARGB(255, 70, 201, 76)),
+                  color: const Color.fromARGB(255, 70, 201, 76)),
             )
           ],
         ),

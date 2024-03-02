@@ -33,4 +33,19 @@ class HabitsProvider extends ChangeNotifier {
   void resetDays() {
     days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }
+
+  List<Map<String, dynamic>> targetDays(List days) {
+    List<String> week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    List<Map<String, dynamic>> presentDays = [];
+
+    for (int i = 0; i < week.length; i++) {
+      String day = week[i];
+      if (days.contains(day)) {
+        presentDays.add({'day': day, 'present': true});
+      } else {
+        presentDays.add({'day': day, 'present': false});
+      }
+    }
+    return presentDays;
+  }
 }

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_list_app/components/days_card.dart';
 import 'package:to_do_list_app/components/filters_card.dart';
-import 'package:to_do_list_app/components/goal_task_card.dart';
 import 'package:to_do_list_app/components/goal_task_card_tp.dart';
 import 'package:to_do_list_app/components/habbit_task_card_tp.dart';
 import 'package:to_do_list_app/components/tasks_card.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/goal_task_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/habbit_task_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/task_model.dart';
-import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
+import 'package:to_do_list_app/services/firebaseStroage/task_update.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class TodayTasksPage extends StatefulWidget {
@@ -66,34 +66,37 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
                     ],
                   ),
                   sameGap2(height),
-                  SizedBox(
-                    height: height / 8,
-                    child: ListView.builder(
-                        itemCount: 14,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          bool isPressed = (index == poistionDay);
-                          return Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: DaysCard(
-                              height: height,
-                              width: width,
-                              index: index,
-                              isPressed: isPressed,
-                              clicked: (value) {
-                                setState(() {
-                                  poistionDay = index;
-                                  day = value;
-                                });
-                              },
-                              changeDate: (value) {
-                                setState(() {
-                                  date = value;
-                                });
-                              },
-                            ),
-                          );
-                        }),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: SizedBox(
+                      height: height / 8,
+                      child: ListView.builder(
+                          itemCount: 14,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            bool isPressed = (index == poistionDay);
+                            return Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: DaysCard(
+                                height: height,
+                                width: width,
+                                index: index,
+                                isPressed: isPressed,
+                                clicked: (value) {
+                                  setState(() {
+                                    poistionDay = index;
+                                    day = value;
+                                  });
+                                },
+                                changeDate: (value) {
+                                  setState(() {
+                                    date = value;
+                                  });
+                                },
+                              ),
+                            );
+                          }),
+                    ),
                   ),
                   sameGap2(height),
                   Padding(
@@ -120,29 +123,31 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
                     ),
                   ),
                   sameGap2(height),
-                  StreamBuilder<List<Task>>(
-                    stream:
-                        OnlineStorage().getTasks(filters[poistionFilter], date),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final tasks = snapshot.data;
-                        return ListView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          children: tasks!.map(buildTask).toList(),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text(
-                            snapshot.toString(),
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        );
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                    },
-                  ),
+                  (poistionFilter == 0 || poistionFilter == 1)
+                      ? StreamBuilder<List<Task>>(
+                          stream: OnlineStorage().getTasks('To Do', date),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              final tasks = snapshot.data;
+                              return ListView(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                children: tasks!.map(buildTask).toList(),
+                              );
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                child: Text(
+                                  snapshot.toString(),
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                              );
+                            } else {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
+                          },
+                        )
+                      : const SizedBox.shrink(),
                   (poistionFilter == 0 || poistionFilter == 2)
                       ? StreamBuilder<List<HabbitTask>>(
                           stream: OnlineStorage().getHabitTasksTP(day: day),
@@ -175,7 +180,6 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
                       ? StreamBuilder<List<GoalTask>>(
                           stream: OnlineStorage().getGoalTasksTP(date: date),
                           builder: (context, snapshot) {
-                            print('date $date');
                             if (snapshot.hasData) {
                               final groupTasks = snapshot.data!;
                               return ListView(
@@ -210,8 +214,10 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
   }
 
   Widget buildTask(Task task) => TasksCard(task: task);
-  Widget buildHabitTask(HabbitTask habittask) =>
-      HabbitTasksTPCard(habbitTask: habittask);
+  Widget buildHabitTask(HabbitTask habittask) => HabbitTasksTPCard(
+        habbitTask: habittask,
+        day: day,
+      );
   Widget buildGoalTasks(GoalTask goalTask) =>
       GoalTasksCardTP(goalTask: goalTask);
 }

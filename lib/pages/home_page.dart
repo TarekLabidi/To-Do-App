@@ -6,7 +6,7 @@ import 'package:to_do_list_app/components/home_page_headder.dart';
 import 'package:to_do_list_app/components/task_group_card.dart';
 import 'package:to_do_list_app/services/data/goal_provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/goal_moddel.dart';
-import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class HomePage extends StatefulWidget {

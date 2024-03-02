@@ -5,7 +5,7 @@ import 'package:to_do_list_app/components/add_goal_container.dart';
 import 'package:to_do_list_app/components/choose_habit_icon.dart';
 import 'package:to_do_list_app/components/select_day_add_goal_page.dart';
 import 'package:to_do_list_app/services/data/goal_provider.dart';
-import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
@@ -175,7 +175,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

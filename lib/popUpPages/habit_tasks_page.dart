@@ -7,7 +7,7 @@ import 'package:to_do_list_app/components/habbits_floating_button.dart';
 import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/habbit_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/habbit_task_model.dart';
-import 'package:to_do_list_app/services/firebaseStroage/tasks_service.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 
 import 'package:to_do_list_app/utils/utils.dart';
 
