@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_app/components/name_pop_up.dart';
+import 'package:to_do_list_app/components/OtherUi/name_pop_up.dart';
 import 'package:to_do_list_app/pages/page_controller.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 

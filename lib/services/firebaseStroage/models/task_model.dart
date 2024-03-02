@@ -1,9 +1,7 @@
 class Task {
   final String title;
-
   final String taskGroup;
   final String category;
-
   final bool isCompleted;
   final int priority;
   final String date;

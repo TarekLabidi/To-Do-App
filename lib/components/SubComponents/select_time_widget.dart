@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:to_do_list_app/components/clock_widget.dart';
+import 'package:to_do_list_app/components/SubComponents/clock_widget.dart';
 import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
@@ -29,7 +29,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
               return Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: 16.0,
-                    vertical: MediaQuery.of(context).size.height * 0.22),
+                    vertical: MediaQuery.of(context).size.height * 0.26),
                 child: Card(
                     margin: const EdgeInsets.only(bottom: 10)
                         .copyWith(left: 10, right: 10, top: 10),

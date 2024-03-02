@@ -3,22 +3,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_list_app/services/data/provider.dart';
-import 'package:to_do_list_app/services/firebaseStroage/models/task_model.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/goal_task_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/task_update.dart';
 import 'package:to_do_list_app/utils/palette.dart';
-import 'package:to_do_list_app/utils/utils.dart';
 
-class TasksCard extends StatefulWidget {
-  final Task task;
-  const TasksCard({super.key, required this.task});
+class GoalTasksCardTP extends StatefulWidget {
+  final GoalTask goalTask;
+  const GoalTasksCardTP({super.key, required this.goalTask});
 
   @override
-  State<TasksCard> createState() => _TasksCardState();
+  State<GoalTasksCardTP> createState() => _GoalTasksCardTPState();
 }
 
-class _TasksCardState extends State<TasksCard> {
-  bool isDone = false;
-
+class _GoalTasksCardTPState extends State<GoalTasksCardTP> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -27,14 +24,13 @@ class _TasksCardState extends State<TasksCard> {
         Icons.delete,
         color: Colors.red,
       ),
-      key: ValueKey(widget.task.title),
-      movementDuration: Duration(milliseconds: 500),
+      key: ValueKey(widget.goalTask.title),
+      movementDuration: const Duration(milliseconds: 500),
       onDismissed: (DismissDirection direction) {
-        bool undoClicked = false;
-        OnlineUpDate().deleteTask(task: widget.task);
+        OnlineUpDate().deleteGoalTask(goalTask: widget.goalTask);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
             content: SizedBox(
               height: 35,
               child: Row(
@@ -43,9 +39,9 @@ class _TasksCardState extends State<TasksCard> {
                   const Spacer(),
                   TextButton(
                     onPressed: () {
-                      OnlineUpDate().addTaskAfterDeleting(task: widget.task);
+                      OnlineUpDate().createGoalTask(goalTask: widget.goalTask);
                     },
-                    child: Text('Undo'),
+                    child: const Text('Undo'),
                   )
                 ],
               ),
@@ -55,7 +51,7 @@ class _TasksCardState extends State<TasksCard> {
       },
       child: Container(
         width: double.infinity,
-        height: height / 7,
+        height: height / 5.8,
         margin: const EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 20),
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 255, 255, 255),
@@ -73,7 +69,7 @@ class _TasksCardState extends State<TasksCard> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    widget.task.category,
+                    widget.goalTask.category,
                     style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -85,42 +81,28 @@ class _TasksCardState extends State<TasksCard> {
                     decoration: BoxDecoration(
                         color: context
                             .read<ToDoProvider>()
-                            .getPrioritySecondary(widget.task.priority),
+                            .getPrioritySecondary(widget.goalTask.priority),
                         borderRadius: BorderRadius.circular(5)),
                     child: Icon(
                       Icons.flag,
                       size: 25,
                       color: context
                           .read<ToDoProvider>()
-                          .getPriority(widget.task.priority),
+                          .getPriority(widget.goalTask.priority),
                     ),
                   ),
                   const SizedBox(
                     width: 15,
                   ),
-                  containerIcon(
-                      30,
-                      30,
-                      context.read<ToDoProvider>().getIcon(widget.task.icon),
-                      20,
-                      context
-                          .read<ToDoProvider>()
-                          .getPriority(widget.task.priority),
-                      context
-                          .read<ToDoProvider>()
-                          .getPrioritySecondary(widget.task.priority)),
-                  const SizedBox(
-                    width: 10,
-                  ),
                 ],
               ),
               Text(
-                widget.task.title,
+                widget.goalTask.title,
                 style:
                     GoogleFonts.lato(fontSize: 17, fontWeight: FontWeight.w700),
               ),
               const SizedBox(
-                height: 5,
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -134,7 +116,7 @@ class _TasksCardState extends State<TasksCard> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        widget.task.date.substring(0, 5),
+                        widget.goalTask.date.substring(0, 6),
                         style: GoogleFonts.lato(
                           color: Palette.purpleColorscondary,
                         ),
@@ -142,26 +124,38 @@ class _TasksCardState extends State<TasksCard> {
                     ],
                   ),
                   const Spacer(),
-                  const SizedBox(width: 10),
                   GestureDetector(
                     onTap: () {
-                      OnlineUpDate().toggleIsDoneTask(
-                        date: widget.task.date,
-                        category: widget.task.category,
-                        title: widget.task.title,
-                      );
+                      OnlineUpDate()
+                          .toggleIsDoneGoalTask(goalTask: widget.goalTask);
                     },
                     child: FutureBuilder<bool>(
-                      future: OnlineUpDate().getTaskCompletionStatus(
-                        date: widget.task.date,
-                        title: widget.task.title,
-                      ),
+                      future: OnlineUpDate().getGoalTaskCompletionStatus(
+                          goalTask: widget.goalTask),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return SizedBox(
+                          return Container(
                             height: 30,
                             width: MediaQuery.of(context).size.width * 0.25,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 255, 236, 207),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 15),
+                              child: Center(
+                                child: Text(
+                                  'Not Done',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange,
+                                  ),
+                                ),
+                              ),
+                            ),
                           );
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
@@ -196,12 +190,17 @@ class _TasksCardState extends State<TasksCard> {
                       },
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  const SizedBox(width: 10),
                 ],
               ),
-              const SizedBox(height: 5)
+              const SizedBox(height: 5),
+              Text(
+                'Goal : ${widget.goalTask.goal}',
+                style: GoogleFonts.roboto(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 78, 2, 179)),
+              )
             ],
           ),
         ),

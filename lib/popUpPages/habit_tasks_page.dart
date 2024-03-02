@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_list_app/components/habbit_task_card.dart';
+import 'package:to_do_list_app/components/Goals&HabitsPageUi/habbit_task_card.dart';
 
-import 'package:to_do_list_app/components/habbits_floating_button.dart';
+import 'package:to_do_list_app/components/Goals&HabitsPageUi/habbits_floating_button.dart';
 import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/habbit_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/habbit_task_model.dart';

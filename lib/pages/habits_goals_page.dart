@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_app/components/goals_list_view.dart';
-import 'package:to_do_list_app/components/habits_list_view.dart';
+import 'package:to_do_list_app/components/Goals&HabitsPageUi/goals_list_view.dart';
+import 'package:to_do_list_app/components/Goals&HabitsPageUi/habits_list_view.dart';
 import 'package:to_do_list_app/popUpPages/add_goal_page.dart';
 import 'package:to_do_list_app/popUpPages/add_habbit_page.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/goal_moddel.dart';

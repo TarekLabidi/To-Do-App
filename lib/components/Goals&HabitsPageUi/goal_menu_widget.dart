@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:to_do_list_app/components/select_time_widget.dart';
+import 'package:to_do_list_app/components/SubComponents/select_time_widget.dart';
 
 class GoalMenuWidget extends StatefulWidget {
   const GoalMenuWidget({

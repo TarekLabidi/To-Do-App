@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:to_do_list_app/components/middle_floationg_button.dart';
+import 'package:to_do_list_app/components/TodayPageUi/middle_floationg_button.dart';
 
 import 'package:to_do_list_app/pages/profile_page.dart';
 import 'package:to_do_list_app/pages/habits_goals_page.dart';

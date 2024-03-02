@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_list_app/components/habbit_clock_widget.dart';
-import 'package:to_do_list_app/components/select_days_of_the_habbit_task.dart';
+import 'package:to_do_list_app/components/Goals&HabitsPageUi/habbit_clock_widget.dart';
+import 'package:to_do_list_app/components/SubComponents/select_days_of_the_habbit_task.dart';
+
 import 'package:to_do_list_app/services/data/habit_provider.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 

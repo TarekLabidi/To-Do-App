@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_list_app/components/add_goal_container.dart';
-import 'package:to_do_list_app/components/choose_habit_icon.dart';
-import 'package:to_do_list_app/components/select_day_add_goal_page.dart';
+import 'package:to_do_list_app/components/Goals&HabitsPageUi/add_goal_container.dart';
+import 'package:to_do_list_app/components/Goals&HabitsPageUi/choose_habit_icon.dart';
+import 'package:to_do_list_app/components/Goals&HabitsPageUi/select_day_add_goal_page.dart';
+
 import 'package:to_do_list_app/services/data/goal_provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/palette.dart';

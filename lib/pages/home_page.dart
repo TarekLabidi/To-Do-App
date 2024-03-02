@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_list_app/components/goals_card_hp.dart';
-import 'package:to_do_list_app/components/habits_card.dart';
-import 'package:to_do_list_app/components/home_page_headder.dart';
-import 'package:to_do_list_app/components/task_group_card.dart';
+import 'package:to_do_list_app/components/HomePageUI/goals_card_hp.dart';
+import 'package:to_do_list_app/components/Goals&HabitsPageUi/habits_card.dart';
+import 'package:to_do_list_app/components/HomePageUI/home_page_headder.dart';
+import 'package:to_do_list_app/components/HomePageUI/task_group_card.dart';
 import 'package:to_do_list_app/services/data/goal_provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/goal_moddel.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:to_do_list_app/components/daily_widget.dart';
-import 'package:to_do_list_app/components/profile_page_headder.dart';
-import 'package:to_do_list_app/components/profile_page_icon.dart';
-import 'package:to_do_list_app/components/profile_page_row.dart';
-import 'package:to_do_list_app/components/weekly_widget.dart';
+import 'package:to_do_list_app/components/ProfilePageUi/daily_widget.dart';
+import 'package:to_do_list_app/components/ProfilePageUi/profile_page_headder.dart';
+import 'package:to_do_list_app/components/ProfilePageUi/profile_page_icon.dart';
+import 'package:to_do_list_app/components/ProfilePageUi/profile_page_row.dart';
+
+import 'package:to_do_list_app/components/ProfilePageUi/weekly_widget.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class ProfilePage extends StatefulWidget {

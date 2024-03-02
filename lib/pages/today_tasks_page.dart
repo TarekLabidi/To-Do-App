@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:to_do_list_app/components/days_card.dart';
-import 'package:to_do_list_app/components/filters_card.dart';
-import 'package:to_do_list_app/components/goal_task_card_tp.dart';
-import 'package:to_do_list_app/components/habbit_task_card_tp.dart';
-import 'package:to_do_list_app/components/tasks_card.dart';
+import 'package:to_do_list_app/components/TodayPageUi/habbit_task_card_tp.dart';
+import 'package:to_do_list_app/components/TodayPageUi/tasks_card.dart';
+import 'package:to_do_list_app/components/TodayPageUi/days_card.dart';
+import 'package:to_do_list_app/components/TodayPageUi/filters_card.dart';
+import 'package:to_do_list_app/components/TodayPageUi/goal_task_card_tp.dart';
+
 import 'package:to_do_list_app/services/firebaseStroage/models/goal_task_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/habbit_task_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/task_model.dart';
-import 'package:to_do_list_app/services/firebaseStroage/task_update.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 

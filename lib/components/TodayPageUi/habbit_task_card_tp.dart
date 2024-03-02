@@ -155,15 +155,36 @@ class _HabbitTasksTPCardState extends State<HabbitTasksTPCard> {
                         OnlineUpDate().toggleIsDoneHabitTask(
                             habbitTask: widget.habbitTask, day: widget.day);
                       },
-                      child: FutureBuilder<bool>(
-                        future: OnlineUpDate().getHabitTaskCompletionStatus(
-                            habbitTask: widget.habbitTask, day: widget.day),
+                      child: StreamBuilder(
+                        stream:
+                            OnlineUpDate().getHabitTaskCompletionStatusStream(
+                          habbitTask: widget.habbitTask,
+                          day: widget.day,
+                        ),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return SizedBox(
+                            return Container(
                               height: 30,
                               width: MediaQuery.of(context).size.width * 0.25,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 255, 236, 207),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0, horizontal: 15),
+                                child: Center(
+                                  child: Text(
+                                    'Not Done',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.orange,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             );
                           } else if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
@@ -208,10 +229,11 @@ class _HabbitTasksTPCardState extends State<HabbitTasksTPCard> {
                 Text(
                   'Habit : ${widget.habbitTask.habit}',
                   maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.roboto(
                       fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: const Color.fromARGB(255, 120, 208, 255)),
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromARGB(255, 170, 68, 248)),
                 ),
                 const SizedBox(height: 5),
               ],

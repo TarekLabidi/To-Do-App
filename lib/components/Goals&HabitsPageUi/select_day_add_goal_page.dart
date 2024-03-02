@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_list_app/components/select_end_day.dart';
-import 'package:to_do_list_app/components/select_start_day.dart';
+import 'package:to_do_list_app/components/Goals&HabitsPageUi/select_end_day.dart';
+import 'package:to_do_list_app/components/SubComponents/select_start_day.dart';
+
 import 'package:to_do_list_app/services/data/goal_provider.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
@@ -29,8 +30,8 @@ class SelectDayAddGoalPage extends StatelessWidget {
                 context: context,
                 builder: ((context) {
                   return (title == 'Start Day')
-                      ? SelectStartDayWidget()
-                      : SelectEndDayWidget();
+                      ? const SelectStartDayWidget()
+                      : const SelectEndDayWidget();
                 }));
           },
           child: Row(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_list_app/auth_pages/login_page.dart';
-import 'package:to_do_list_app/components/login_register_buttom.dart';
-import 'package:to_do_list_app/components/text_field.dart';
+import 'package:to_do_list_app/components/OtherUi/login_register_buttom.dart';
+import 'package:to_do_list_app/components/OtherUi/text_field.dart';
 import 'package:to_do_list_app/services/auth/auth_methods.dart';
 
 class RegisterPage extends StatefulWidget {

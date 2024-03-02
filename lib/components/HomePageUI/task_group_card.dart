@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_list_app/components/number_of_tasks_in_task_group_card.dart';
+import 'package:to_do_list_app/components/HomePageUI/number_of_tasks_in_task_group_card.dart';
 import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/utils.dart';
