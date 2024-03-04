@@ -214,10 +214,8 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
   }
 
   Widget buildTask(Task task) => TasksCard(task: task);
-  Widget buildHabitTask(HabbitTask habittask) => HabbitTasksTPCard(
-        habbitTask: habittask,
-        day: day,
-      );
+  Widget buildHabitTask(HabbitTask habittask) =>
+      HabbitTasksTPCard(habbitTask: habittask, day: day, date: date);
   Widget buildGoalTasks(GoalTask goalTask) =>
       GoalTasksCardTP(goalTask: goalTask);
 }

@@ -219,7 +219,8 @@ class OnlineStorage {
         days: days,
         icon: icon,
         time: time,
-        isCompleted: false);
+        isCompleted: false,
+        exeception: []);
     await _firestore
         .collection('users')
         .doc(currentUserId)

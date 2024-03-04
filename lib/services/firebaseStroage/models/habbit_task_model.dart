@@ -6,6 +6,7 @@ class HabbitTask {
   final int icon;
   final String time;
   final bool isCompleted;
+  final List exeception;
   HabbitTask(
       {required this.title,
       required this.habit,
@@ -13,7 +14,8 @@ class HabbitTask {
       required this.days,
       required this.icon,
       required this.time,
-      required this.isCompleted});
+      required this.isCompleted,
+      required this.exeception});
 
   Map<String, dynamic> toMap() {
     return {
@@ -23,7 +25,8 @@ class HabbitTask {
       'icon': icon,
       'days': days,
       "time": time,
-      'isCompleted': isCompleted
+      'isCompleted': isCompleted,
+      'exeception': exeception
     };
   }
 
@@ -34,5 +37,6 @@ class HabbitTask {
       icon: json['icon'],
       days: json['days'],
       time: json['time'],
-      isCompleted: json['isCompleted']);
+      isCompleted: json['isCompleted'],
+      exeception: json['exeception']);
 }

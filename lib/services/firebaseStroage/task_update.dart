@@ -183,9 +183,20 @@ class OnlineUpDate {
   }
 
   Future<void> deleteHabitTaskFromTP(
-      {required HabbitTask habbitTask, required String day}) async {
+      {required HabbitTask habbitTask,
+      required String day,
+      required String date}) async {
     final String currentUserId = _firebaseAuth.currentUser!.uid;
-
+    final snapshot = await _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Habits')
+        .doc(habbitTask.habit)
+        .collection('tasks')
+        .doc(habbitTask.title)
+        .get();
+    List deletedDays = snapshot.data()!['exeception'];
+    deletedDays.add(date);
     await _firestore
         .collection('users')
         .doc(currentUserId)
@@ -193,25 +204,36 @@ class OnlineUpDate {
         .doc('days')
         .collection(day)
         .doc(habbitTask.title)
-        .delete();
-    final snapshots = await _firestore
-        .collection('users')
-        .doc(currentUserId)
-        .collection('Habits')
-        .doc(habbitTask.habit)
-        .collection('tasks')
-        .doc(habbitTask.habit)
-        .get();
-    List days = snapshots.data()!['days'];
-    days.remove(day);
+        .update({'exeception': deletedDays});
+
     await _firestore
         .collection('users')
         .doc(currentUserId)
         .collection('Habits')
         .doc(habbitTask.habit)
         .collection('tasks')
+        .doc(habbitTask.title)
+        .update({'exeception': deletedDays});
+  }
+
+  Stream<List> getIsHabitDeleted({required HabbitTask habbitTask}) async* {
+    final String currentUserId = _firebaseAuth.currentUser!.uid;
+    final snapshots = _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('Habits')
         .doc(habbitTask.habit)
-        .update({"days": days});
+        .collection('tasks')
+        .doc(habbitTask.title)
+        .snapshots();
+
+    await for (final snapshot in snapshots) {
+      if (snapshot.exists) {
+        yield [snapshot.data()!['exeception']];
+      } else {
+        yield [];
+      }
+    }
   }
 
   Future deleteGoalTask({required GoalTask goalTask}) async {

@@ -29,7 +29,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
               return Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: 16.0,
-                    vertical: MediaQuery.of(context).size.height * 0.26),
+                    vertical: MediaQuery.of(context).size.height * 0.2),
                 child: Card(
                     margin: const EdgeInsets.only(bottom: 10)
                         .copyWith(left: 10, right: 10, top: 10),

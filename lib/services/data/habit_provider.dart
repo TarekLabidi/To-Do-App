@@ -48,4 +48,9 @@ class HabitsProvider extends ChangeNotifier {
     }
     return presentDays;
   }
+
+  bool isHabitDeleted(List exep, String date) {
+    print('ppppp $exep');
+    return false;
+  }
 }
