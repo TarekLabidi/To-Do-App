@@ -124,16 +124,16 @@ class OnlineStorage {
     return docRef.snapshots().map((snapshot) => snapshot.exists);
   }
 
-  Future<Map<String, dynamic>> getName() async {
+  Stream<Map<String, dynamic>> getName() {
     final String currentUser = _firebaseAuth.currentUser!.uid;
-    final DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore
+
+    return _firestore
         .collection('users')
         .doc(currentUser)
         .collection('personalData')
         .doc('name')
-        .get();
-
-    return snapshot.data() ?? {};
+        .snapshots()
+        .map((snapshot) => snapshot.data() ?? {});
   }
 
   Future createHabbit({
@@ -339,6 +339,21 @@ class OnlineStorage {
           (snapshots) => snapshots.docs
               .map((doc) => GoalTask.fromJson(doc.data()))
               .toList(),
+        );
+  }
+
+  Stream<List<HabbitTask>> getPercentageOfHabitTasks({required String day}) {
+    final currenUserId = _firebaseAuth.currentUser!.uid;
+    return _firestore
+        .collection('users')
+        .doc(currenUserId)
+        .collection('Habits')
+        .doc('days')
+        .collection(day)
+        .snapshots()
+        .map(
+          (snapshots) =>
+              snapshots.docs.map((e) => HabbitTask.fromJson(e.data())).toList(),
         );
   }
 }

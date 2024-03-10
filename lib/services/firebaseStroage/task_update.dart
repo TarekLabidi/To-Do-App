@@ -234,6 +234,7 @@ class OnlineUpDate {
         yield [];
       }
     }
+    yield [];
   }
 
   Future deleteGoalTask({required GoalTask goalTask}) async {

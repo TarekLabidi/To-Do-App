@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_list_app/services/firebaseStroage/models/habbit_task_model.dart';
 
 class HabitsProvider extends ChangeNotifier {
   String time;
@@ -49,8 +50,13 @@ class HabitsProvider extends ChangeNotifier {
     return presentDays;
   }
 
-  bool isHabitDeleted(List exep, String date) {
-    print('ppppp $exep');
-    return false;
+  double percentageOfHabits(List<HabbitTask> habits) {
+    int completed = 0;
+    for (int i = 0; i < habits.length; i++) {
+      if (habits[i].isCompleted == true) {
+        completed++;
+      }
+    }
+    return completed / habits.length;
   }
 }

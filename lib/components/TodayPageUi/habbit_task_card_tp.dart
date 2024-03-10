@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_list_app/services/data/habit_provider.dart';
 import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/habbit_task_model.dart';
 import 'package:to_do_list_app/services/firebaseStroage/task_update.dart';
@@ -36,17 +35,38 @@ class _HabbitTasksTPCardState extends State<HabbitTasksTPCard> {
       stream: OnlineUpDate().getIsHabitDeleted(habbitTask: widget.habbitTask),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const SizedBox.shrink();
         }
 
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         }
-        print('hhhhh${snapshot.data![0].contains(widget.date)}');
         if (snapshot.data![0].contains(widget.date)) {
           return const SizedBox.shrink();
         }
         return Dismissible(
+          confirmDismiss: (direction) async {
+            return await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text("Confirm"),
+                  content:
+                      const Text("Are you sure you want to delete this task?"),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Text("Cancel"),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: const Text("Delete"),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
           key: ValueKey(widget.habbitTask.title),
           background: const Icon(Icons.delete, color: Colors.red),
           movementDuration: const Duration(milliseconds: 500),
@@ -55,27 +75,6 @@ class _HabbitTasksTPCardState extends State<HabbitTasksTPCard> {
               habbitTask: widget.habbitTask,
               day: widget.day,
               date: widget.date,
-            );
-
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                duration: const Duration(seconds: 3),
-                content: SizedBox(
-                  height: 35,
-                  child: Row(
-                    children: [
-                      const Text('You have deleted the task'),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          // Implement undo logic here
-                        },
-                        child: const Text('Undo'),
-                      )
-                    ],
-                  ),
-                ),
-              ),
             );
           },
           child: Container(

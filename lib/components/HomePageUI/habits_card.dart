@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_list_app/services/data/habit_provider.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 
 class HabitsCard extends StatelessWidget {
@@ -66,21 +70,37 @@ class HabitsCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: width / 26),
-          CircularPercentIndicator(
-            radius: 50.0,
-            lineWidth: 8.0,
-            percent: .60,
-            center: const Text(
-              "100%",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18),
-            ),
-            progressColor: Colors.white,
-            backgroundColor: const Color.fromARGB(255, 141, 117, 214),
-            reverse: true,
-          )
+          StreamBuilder(
+              stream: OnlineStorage().getPercentageOfHabitTasks(
+                  day: DateFormat('EEE').format(DateTime.now())),
+              builder: (context, snapshots) {
+                if (snapshots.hasError) {
+                  return Text(snapshots.error.toString());
+                } else if (snapshots.connectionState ==
+                    ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else {
+                  final snapshot = snapshots.data;
+
+                  return CircularPercentIndicator(
+                    radius: 50.0,
+                    lineWidth: 8.0,
+                    percent: context
+                        .read<HabitsProvider>()
+                        .percentageOfHabits(snapshot!),
+                    center: Text(
+                      "${context.read<HabitsProvider>().percentageOfHabits(snapshot) * 100}",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    ),
+                    progressColor: Colors.white,
+                    backgroundColor: const Color.fromARGB(255, 141, 117, 214),
+                    reverse: true,
+                  );
+                }
+              })
         ],
       ),
     );

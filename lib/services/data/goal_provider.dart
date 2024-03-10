@@ -133,12 +133,10 @@ class GoalsProvider extends ChangeNotifier {
         int.parse(nowDateParts[1]), int.parse(nowDateParts[0]));
 
     // Check if date2 is before nowdate
-    if (date2.isBefore(nowdate)) {
+    if (date2.isBefore(nowdate) || nowdate.isBefore(date1)) {
       return false;
     }
-    if (nowdate.isBefore(date1)) {
-      return false;
-    }
+
     return true;
   }
 }
