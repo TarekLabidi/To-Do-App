@@ -177,7 +177,7 @@ class OnlineUpDate {
       if (snapshot.exists) {
         yield snapshot.data()!['isCompleted'];
       } else {
-        yield false; // Document doesn't exist, consider it not completed
+        yield false;
       }
     }
   }

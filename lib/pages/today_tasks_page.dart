@@ -150,7 +150,9 @@ class _TodayTasksPageState extends State<TodayTasksPage> {
                       : const SizedBox.shrink(),
                   (poistionFilter == 0 || poistionFilter == 2)
                       ? StreamBuilder<List<HabbitTask>>(
-                          stream: OnlineStorage().getHabitTasksTP(day: day),
+                          stream: OnlineStorage().getHabitTasksTP(
+                            day: day,
+                          ),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final groupTasks = snapshot.data!;

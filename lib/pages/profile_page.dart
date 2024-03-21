@@ -76,6 +76,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             title: 'Complited',
                           ),
                         ),
+                        sameGap(height),
+                        GestureDetector(
+                          onTap: () {},
+                          child: const GoalsPageIcon(
+                            icon: FontAwesomeIcons.trash,
+                            title: 'Deleted',
+                          ),
+                        ),
                       ],
                     ),
                   ),

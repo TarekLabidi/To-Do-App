@@ -356,4 +356,38 @@ class OnlineStorage {
               snapshots.docs.map((e) => HabbitTask.fromJson(e.data())).toList(),
         );
   }
+
+  Future<int> getNumberOfTasksInHabbit(String habbit) async {
+    final String currentUserId = _firebaseAuth.currentUser!.uid;
+    int documentCount = 0;
+
+    await _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection("Habits")
+        .doc(habbit)
+        .collection('tasks')
+        .get()
+        .then((querySnapshot) {
+      documentCount = querySnapshot.size;
+    });
+    return documentCount;
+  }
+
+  Future<int> getNumberOfTasksInGoal(String goal) async {
+    final String currentUserId = _firebaseAuth.currentUser!.uid;
+    int documentCount = 0;
+
+    await _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection("Goals")
+        .doc(goal)
+        .collection('tasks')
+        .get()
+        .then((querySnapshot) {
+      documentCount = querySnapshot.size;
+    });
+    return documentCount;
+  }
 }

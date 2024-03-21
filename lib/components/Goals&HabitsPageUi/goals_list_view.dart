@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:to_do_list_app/popUpPages/goal_tasks_page.dart';
 import 'package:to_do_list_app/services/data/provider.dart';
 import 'package:to_do_list_app/services/firebaseStroage/models/goal_moddel.dart';
+import 'package:to_do_list_app/services/firebaseStroage/tasks_storage.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
@@ -44,14 +45,26 @@ class GoalsListView extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                    const Text(
-                      '11 Tasks',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
-                    ),
+                    FutureBuilder(
+                        future:
+                            OnlineStorage().getNumberOfTasksInGoal(goal.title),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Text('Loading...');
+                          }
+                          if (snapshot.hasData) {
+                            return Text(
+                              '${snapshot.data.toString()} Tasks',
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            );
+                          }
+                          return const Text('Some Error Has Occured');
+                        })
                   ],
                 ),
               ],
