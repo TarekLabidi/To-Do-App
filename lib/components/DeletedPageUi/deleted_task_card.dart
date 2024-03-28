@@ -8,15 +8,15 @@ import 'package:to_do_list_app/services/firebaseStroage/task_update.dart';
 import 'package:to_do_list_app/utils/palette.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
-class TasksCard extends StatefulWidget {
+class DeletedTasksCard extends StatefulWidget {
   final Task task;
-  const TasksCard({super.key, required this.task});
+  const DeletedTasksCard({super.key, required this.task});
 
   @override
-  State<TasksCard> createState() => _TasksCardState();
+  State<DeletedTasksCard> createState() => _DeletedTasksCardState();
 }
 
-class _TasksCardState extends State<TasksCard> {
+class _DeletedTasksCardState extends State<DeletedTasksCard> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -131,88 +131,12 @@ class _TasksCardState extends State<TasksCard> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        widget.task.date.substring(0, 5),
+                        widget.task.date,
                         style: GoogleFonts.lato(
                           color: Palette.purpleColorscondary,
                         ),
                       ),
                     ],
-                  ),
-                  const Spacer(),
-                  const SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () {
-                      OnlineUpDate().toggleIsDoneTask(
-                        date: widget.task.date,
-                        category: widget.task.category,
-                        title: widget.task.title,
-                      );
-                    },
-                    child: StreamBuilder(
-                      stream: OnlineUpDate().getTaskCompletionStatusStream(
-                        date: widget.task.date,
-                        title: widget.task.title,
-                      ),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Container(
-                            height: 30,
-                            width: MediaQuery.of(context).size.width * 0.25,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 255, 236, 207),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 4.0, horizontal: 15),
-                              child: Center(
-                                child: Text(
-                                  'Not Done',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.orange,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else {
-                          bool isDone = snapshot.data ?? false;
-                          return Container(
-                            height: 30,
-                            width: MediaQuery.of(context).size.width * 0.25,
-                            decoration: BoxDecoration(
-                              color: isDone
-                                  ? const Color.fromARGB(255, 209, 250, 210)
-                                  : const Color.fromARGB(255, 255, 236, 207),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 4.0, horizontal: 15),
-                              child: Center(
-                                child: Text(
-                                  isDone ? 'Done ✔' : 'Not Done',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        isDone ? Colors.green : Colors.orange,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
                   ),
                 ],
               ),

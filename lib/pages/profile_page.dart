@@ -78,7 +78,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         sameGap(height),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            // Navigator.push(context, MaterialPageRoute(builder: (context) => DeltedTasksPage()));
+                          },
                           child: const GoalsPageIcon(
                             icon: FontAwesomeIcons.trash,
                             title: 'Deleted',

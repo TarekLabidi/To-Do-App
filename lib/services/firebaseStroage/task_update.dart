@@ -46,7 +46,7 @@ class OnlineUpDate {
     }
   }
 
-  Future<void> deleteTask({required Task task}) async {
+  Future<void> deleteNormalTask({required Task task}) async {
     final String currentUserId = _firebaseAuth.currentUser!.uid;
     DocumentSnapshot<Map> snapshot = await _firestore
         .collection('users')
@@ -258,7 +258,7 @@ class OnlineUpDate {
     await _firestore
         .collection('users')
         .doc(currentUserId)
-        .collection('deleted Tasks')
+        .collection('deleted Goal Tasks')
         .doc(goalTask.title)
         .set(goalTask.toMap());
   }
@@ -285,7 +285,7 @@ class OnlineUpDate {
     await _firestore
         .collection('users')
         .doc(currentUserId)
-        .collection('deleted Tasks')
+        .collection('deleted Goal Tasks')
         .doc(goalTask.title)
         .delete();
   }

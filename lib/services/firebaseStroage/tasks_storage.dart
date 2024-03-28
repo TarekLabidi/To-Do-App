@@ -390,4 +390,31 @@ class OnlineStorage {
     });
     return documentCount;
   }
+
+  Stream<List<Task>> getDeletedTasks() {
+    final String currentUserId = _firebaseAuth.currentUser!.uid;
+    return _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('deleted Tasks')
+        .snapshots()
+        .map(
+          (snapshots) =>
+              snapshots.docs.map((doc) => Task.fromJson(doc.data())).toList(),
+        );
+  }
+
+  Stream<List<GoalTask>> getDeletedGoalTasks() {
+    final String currentUserId = _firebaseAuth.currentUser!.uid;
+    return _firestore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('deleted Goal Tasks')
+        .snapshots()
+        .map(
+          (snapshots) => snapshots.docs
+              .map((doc) => GoalTask.fromJson(doc.data()))
+              .toList(),
+        );
+  }
 }
