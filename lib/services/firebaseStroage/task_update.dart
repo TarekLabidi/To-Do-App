@@ -10,6 +10,7 @@ class OnlineUpDate {
 
   Future<void> toggleIsDoneTask(
       {required String date,
+      required Task task,
       required String category,
       required String title}) async {
     final String currentUserId = _firebaseAuth.currentUser!.uid;
@@ -43,6 +44,21 @@ class OnlineUpDate {
           .collection('tasks')
           .doc(title)
           .update({'isCompleted': !isCompleted});
+      if (isCompleted == false) {
+        await _firestore
+            .collection('users')
+            .doc(currentUserId)
+            .collection('completed Tasks')
+            .doc(task.title)
+            .set(task.toMap());
+      } else {
+        await _firestore
+            .collection('users')
+            .doc(currentUserId)
+            .collection('completed Tasks')
+            .doc(task.title)
+            .delete();
+      }
     }
   }
 

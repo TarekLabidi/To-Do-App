@@ -153,7 +153,6 @@ class _DeletedTasksPageState extends State<DeletedTasksPage> {
                         stream: OnlineStorage().getDeletedGoalTasks(),
                         builder: (context, snapshots) {
                           if (snapshots.hasData) {
-                            print('object');
                             final groupTasks = snapshots.data!;
                             return ListView(
                               physics: const NeverScrollableScrollPhysics(),

@@ -6,6 +6,7 @@ import 'package:to_do_list_app/components/ProfilePageUi/profile_page_icon.dart';
 import 'package:to_do_list_app/components/ProfilePageUi/profile_page_row.dart';
 
 import 'package:to_do_list_app/components/ProfilePageUi/weekly_widget.dart';
+import 'package:to_do_list_app/popUpPages/deleted_tasks_page.dart';
 import 'package:to_do_list_app/utils/utils.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -55,22 +56,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         GestureDetector(
                           onTap: () {},
                           child: const GoalsPageIcon(
-                            icon: FontAwesomeIcons.trophy,
-                            title: 'Goals',
-                          ),
-                        ),
-                        sameGap(height),
-                        GestureDetector(
-                          onTap: () {},
-                          child: const GoalsPageIcon(
-                            icon: FontAwesomeIcons.recycle,
-                            title: 'Habits',
-                          ),
-                        ),
-                        sameGap(height),
-                        GestureDetector(
-                          onTap: () {},
-                          child: const GoalsPageIcon(
                             // ignore: deprecated_member_use
                             icon: FontAwesomeIcons.checkCircle,
                             title: 'Complited',
@@ -78,8 +63,21 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         sameGap(height),
                         GestureDetector(
+                          onTap: () {},
+                          child: const GoalsPageIcon(
+                            // ignore: deprecated_member_use
+                            icon: FontAwesomeIcons.exclamation,
+                            title: 'Missed',
+                          ),
+                        ),
+                        sameGap(height),
+                        GestureDetector(
                           onTap: () {
-                            // Navigator.push(context, MaterialPageRoute(builder: (context) => DeltedTasksPage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const DeletedTasksPage()));
                           },
                           child: const GoalsPageIcon(
                             icon: FontAwesomeIcons.trash,

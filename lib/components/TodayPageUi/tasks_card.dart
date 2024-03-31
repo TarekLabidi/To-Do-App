@@ -143,6 +143,7 @@ class _TasksCardState extends State<TasksCard> {
                   GestureDetector(
                     onTap: () {
                       OnlineUpDate().toggleIsDoneTask(
+                        task: widget.task,
                         date: widget.task.date,
                         category: widget.task.category,
                         title: widget.task.title,
